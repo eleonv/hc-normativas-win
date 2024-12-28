@@ -1,0 +1,116 @@
+<div class="row ">
+    <div class="col-12">
+        <h6 class="form-title d-flex align-items-center"><mat-icon svgIcon="heroicons_outline:cog-6-tooth"></mat-icon>
+            Administrar normativas</h6>
+    </div>
+
+    <div class="col-12">
+
+        <div class="mb-3">
+            <form [formGroup]="form">
+            <mat-accordion>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title> Filtro de búsqueda </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <form class="form-widh-sm">
+                        <div class="row">
+
+                            <div class="col-md-5">
+                                <mat-form-field appearance="outline" class="form-full-width">
+                                    <mat-label>Nombre normativa</mat-label>
+                                    <input type="text" matInput maxlength="100" formControlName="cNombre"
+                                        name="cNombre" (keydown.enter)="onListarPorBusqueda(); $event.preventDefault()">
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-md-5">
+                                <mat-form-field appearance="outline" class="form-full-width">
+                                    <mat-label>Categoría</mat-label>
+                                    <mat-select formControlName="idTipo" name="idTipo">
+                                        @for (item of tiposNormRaw; track item) {
+                                        <mat-option [value]="item.id">{{item.cNombre}}</mat-option>
+                                        }
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="d-flex justify-content-end">
+                                    <button type="button" mat-flat-button class="me-2"
+                                        (click)="onListarPorBusqueda()">Buscar</button>
+                                    <button type="button" mat-button class="" (click)="onLimpiarBusqueda()">Limpiar
+                                        filtro</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </mat-expansion-panel>
+            </mat-accordion>
+            </form>
+        </div>
+
+        <div class="mb-2">
+            <button type="button" mat-button (click)="onNuevoRegistro()">
+                <mat-icon svgIcon="heroicons_outline:plus"></mat-icon>
+                Nueva Normativa</button>
+        </div>
+
+        <div class="table-body">
+            <table mat-table [dataSource]="listData" matSort class="table-full-width hc-table">
+                <ng-container matColumnDef="idNormativa">
+                    <th mat-header-cell *matHeaderCellDef style="width: 50px;" mat-sort-header> No. </th>
+                    <td mat-cell *matCellDef="let element"> {{element.idNormativa}} </td>
+                </ng-container>
+                <ng-container matColumnDef="cArea">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Area</th>
+                    <td mat-cell *matCellDef="let element"> {{element.cNombreArea}} </td>
+                </ng-container>
+                <ng-container matColumnDef="cTipo">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Tipo</th>
+                    <td mat-cell *matCellDef="let element"> {{element.cNombreTipo}} </td>
+                </ng-container>
+                <ng-container matColumnDef="cNombre">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre de normativa</th>
+                    <td mat-cell *matCellDef="let element"> {{element.cNombre}} </td>
+                </ng-container>
+                <ng-container matColumnDef="cVersion">
+                    <th mat-header-cell *matHeaderCellDef style="width: 100px;"> Versión </th>
+                    <td mat-cell *matCellDef="let element">
+                        {{element.cVersion}}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="cFechaVigencia">
+                    <th mat-header-cell *matHeaderCellDef style="width: 100px;" mat-sort-header> Fecha de Vigencia </th>
+                    <td mat-cell *matCellDef="let element"> {{element.cFechaVigencia}} </td>
+                </ng-container>
+                <ng-container matColumnDef="nPosicion">
+                    <th mat-header-cell *matHeaderCellDef style="width: 50px;"mat-sort-header> Orden </th>
+                    <td mat-cell *matCellDef="let element"> {{element.nPosicion}} </td>
+                </ng-container>
+                <ng-container matColumnDef="acciones">
+                    <th mat-header-cell *matHeaderCellDef class="text-center" style="width: 150px;"> Opciones </th>
+                    <td mat-cell *matCellDef="let element" class="text-center">
+                        <div class="d-flex align-items-center justify-content-center">
+                            <button mat-icon-button type="button" matTooltip="Editar normativa"
+                                (click)="onEditarRegistro(element)">
+                                <mat-icon svgIcon="mat_outline:edit"></mat-icon>
+                            </button>
+                            <button mat-icon-button type="button" matTooltip="Eliminar normativa"
+                                (click)="onEliminarRegistro(element)">
+                                <mat-icon svgIcon="heroicons_outline:x-mark"></mat-icon>
+                            </button>
+                        </div>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+
+            <mat-paginator [pageSizeOptions]="_const.PAGINATION_SIZE_OPTIONS" [length]="pagination.nTotal" [pageIndex]="pagination.pageIndex"
+                [pageSize]="pagination.pageSize" (page)="onPaginatorEvent($event)">
+            </mat-paginator>
+        </div>
+
+    </div>
+</div>

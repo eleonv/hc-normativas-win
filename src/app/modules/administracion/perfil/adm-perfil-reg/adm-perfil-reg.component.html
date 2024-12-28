@@ -1,0 +1,48 @@
+<form [formGroup]="form" class="form-widh-sm">
+    <div class="row">
+        <div class="col-12">
+            <h6 class="form-title">
+                @if (accionForm == this._const.ACCION_FORM_NEW) {Registrar perfil}
+                @else {Actualizar perfil}
+            </h6>
+        </div>
+        <div class="col-md-12">
+            <mat-form-field appearance="outline" class="form-full-width">
+                <mat-label>Nombre</mat-label>
+                <input type="text" matInput maxlength="800" formControlName="cNombre" name="cNombre">
+            </mat-form-field>
+        </div>
+
+        <div class="col-md-12">
+            <mat-form-field appearance="outline" class="form-full-width">
+                <mat-label>Gerencia</mat-label>
+                <!-- <mat-select formControlName="nTipoPadre" name="nTipoPadre"></mat-select> -->
+                <mat-select>
+                    <mat-option value="1">OFICILIA DE NORMATI..</mat-option>
+                    <mat-option value="2">GERENCIA DE ALD.</mat-option>
+                    <mat-option value="3">GERENCIA GENERAL</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <section class=" mb-3">
+            <p>Opciones:</p>
+            <mat-checkbox formControlName="lImprime" class="mx-3"
+                [(ngModel)]="lImprime">Imprime</mat-checkbox>
+            <mat-checkbox formControlName="lDescarga" class="mx-3"
+                [(ngModel)]="lDescarga">Descarga</mat-checkbox>
+        </section>
+        <div class="col-12 mb-3">
+            <mat-divider></mat-divider>
+        </div>
+
+        <div class="col-12 mb-3">
+            @if (accionForm!=_const.ACCION_FORM_VIEW) {
+            <button type="button" mat-flat-button class="me-2" (click)="onGuardarRegistro()"
+                [disabled]="form.invalid">Guardar</button>
+            }
+
+            <button type="button" mat-button class="" (click)="onSalirForm()">Salir</button>
+
+        </div>
+    </div>
+</form>

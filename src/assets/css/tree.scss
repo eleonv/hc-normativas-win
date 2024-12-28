@@ -1,0 +1,83 @@
+:root {
+  --tree-align-vertical: 9px;
+  --tree-border: #bdbdbd;
+  --tree-hover-background: #fafafa;
+}
+
+/* tree items */
+.tree-items, .tree-items ul, .tree-items li {
+  position: relative;
+}
+
+.tree-items ul {
+  list-style: none;
+  padding-left: 1.5rem;
+}
+
+.tree-items ul li {
+  width: 100%;
+}
+
+.tree-items li::before, .tree-items li::after {
+  content: "";
+  position: absolute;
+  left: -12px;
+}
+
+.tree-items li::before {
+  border-top: 2px dotted var(--tree-border);
+  top: calc(var(--tree-align-vertical) + 9px);
+  width: 8px;
+  height: 0;
+}
+
+.tree-items li::after {
+  border-left: 2px dotted var(--tree-border);
+  height: 100%;
+  width: 0px;
+  top: var(--tree-align-vertical);
+}
+
+.tree-items ul > li:last-child::after {
+  height: 8px;
+}
+
+
+/* toolbar */
+.toolbar-container {
+  position: relative;
+  width: 100%!important;
+  /*min-height: 48px;*/
+}
+
+.toolbar {
+  position: absolute;
+  top: 5px;
+  right: 0;
+  display: none;
+}
+
+.toolbar-container:hover .toolbar {
+  display: block;
+}
+
+.content {
+  /*padding: 10px;*/
+  padding: 10px 120px 10px 10px;
+}
+
+.toolbar-container:hover {
+  border-radius: 3px;
+  background-color: var(--tree-hover-background);
+}
+
+.options-container {
+  padding: 0 10px 10px 10px;
+}
+
+.options {
+  border-top: 1px solid #eeeeee;
+}
+
+
+

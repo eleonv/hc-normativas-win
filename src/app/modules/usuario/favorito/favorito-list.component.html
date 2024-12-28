@@ -1,0 +1,70 @@
+<div class="row ">
+    <div class="col-12">
+        <h6 class="form-title d-flex align-items-center">
+            <mat-icon svgIcon="mat_outline:star_outline"></mat-icon> <span class="ms-1">Favoritos</span>
+        </h6>
+    </div>
+
+    <div class="col-12">
+
+        <div class="table-body">
+            <table mat-table [dataSource]="listData" class="table-full-width hc-table">
+                <ng-container matColumnDef="favorito">
+                    <th mat-header-cell *matHeaderCellDef style="width: 50px;"  class="text-center"><mat-icon
+                            svgIcon="mat_outline:star_outline"></mat-icon></th>
+                    <td mat-cell *matCellDef="let element"  class="text-center">
+                        <button mat-icon-button type="button" (click)="onFavorito(element)">
+                            <mat-icon [svgIcon]="element.lFavorito ? 'mat_outline:star' : 'mat_outline:star_outline' "
+                                style="color: #FFAC32;"></mat-icon>
+                        </button>
+
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="idNormativa">
+                    <th mat-header-cell *matHeaderCellDef style="width: 50px;"> No. </th>
+                    <td mat-cell *matCellDef="let element"> {{element.nPosicion}} </td>
+                </ng-container>
+                <ng-container matColumnDef="cNombreTipo">
+                    <th mat-header-cell *matHeaderCellDef > Tipo </th>
+                    <td mat-cell *matCellDef="let element"> {{element.cNombreTipo}} </td>
+                </ng-container>
+                <ng-container matColumnDef="cNombre">
+                    <th mat-header-cell *matHeaderCellDef > Nombre de normativa</th>
+                    <td mat-cell *matCellDef="let element"> {{element.cNombre}} </td>
+                </ng-container>
+                <ng-container matColumnDef="cVersion">
+                    <th mat-header-cell *matHeaderCellDef style="width: 90px;" class="text-center"> Versión </th>
+                    <td mat-cell *matCellDef="let element" class="text-center">
+                        {{element.cVersion}}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="cFechaVigencia">
+                    <th mat-header-cell *matHeaderCellDef style="width: 140px;" class="text-center"> Fecha vigencia </th>
+                    <td mat-cell *matCellDef="let element" class="text-center"> {{element.cFechaVigencia}} </td>
+                </ng-container>
+                <ng-container matColumnDef="acciones">
+                    <th mat-header-cell *matHeaderCellDef class="text-center" style="width: 150px;"> Opciones </th>
+                    <td mat-cell *matCellDef="let element" class="text-center">
+                        <div class="d-flex align-items-center justify-content-center">
+                            <button mat-icon-button type="button" matTooltip="Registrar sugerencia"
+                                (click)="onRegistrarSugerencia(element)">
+                                <mat-icon svgIcon="heroicons_outline:chat-bubble-left-ellipsis"></mat-icon>
+                            </button>
+                            <button mat-icon-button type="button" matTooltip="Ver normativa"
+                                (click)="onVerDocumento(element)">
+                                <mat-icon svgIcon="mat_outline:pageview"></mat-icon>
+                            </button>
+                        </div>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+
+            <mat-paginator [pageSizeOptions]="_const.PAGINATION_SIZE_OPTIONS" [length]="pagination.nTotal" [pageIndex]="pagination.pageIndex"
+                [pageSize]="pagination.pageSize" (page)="onPaginatorEvent($event)">
+            </mat-paginator>
+        </div>
+
+    </div>
+</div>

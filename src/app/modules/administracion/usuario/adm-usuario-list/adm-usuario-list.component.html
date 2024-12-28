@@ -1,0 +1,101 @@
+<div class="row ">
+    <div class="col-12">
+        <h6 class="form-title d-flex align-items-center">
+            <mat-icon svgIcon="mat_outline:query_stats"></mat-icon> <span class="ms-1">Accesos de usuarios</span>
+        </h6>
+    </div>
+
+    <div class="col-12">
+
+        <div class="mb-3">
+            <form [formGroup]="form">
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title> Filtro de búsqueda </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <form class="form-widh-sm">
+                            <div class="row">
+                                <div class="col-md-3">
+
+                                    <mat-form-field appearance="outline" class="form-full-width">
+                                        <mat-label>Fecha inicio</mat-label>
+                                        <input type="text" matInput maxlength="10" [matDatepicker]="pickerfi"
+                                            formControlName="cFechaInicio" readonly [max]="fechaHasta" (dateChange)="onChangeDesde()">
+                                        <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+                                        <mat-datepicker-toggle matIconSuffix [for]="pickerfi"></mat-datepicker-toggle>
+                                        <mat-datepicker #pickerfi></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <mat-form-field appearance="outline" class="form-full-width">
+                                        <mat-label>Fecha fin</mat-label>
+                                        <input type="text" matInput [matDatepicker]="pickerff"
+                                            formControlName="cFechaFin" readonly [min]="minDate" [max]="maxDate"
+                                            maxlength="10">
+                                        <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+                                        <mat-datepicker-toggle matIconSuffix [for]="pickerff"></mat-datepicker-toggle>
+                                        <mat-datepicker #pickerff></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="d-flex justify-content-end">
+                                        <button type="button" mat-flat-button class="me-2"
+                                            (click)="onListarPorBusqueda()">Buscar</button>
+                                        <button type="button" mat-button class="" (click)="onLimpiarBusqueda()">Limpiar
+                                            filtro</button>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </form>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </form>
+        </div>
+        <div class="table-body">
+            <table mat-table [dataSource]="listData" class="table-full-width hc-table">
+                <ng-container matColumnDef="cDNI">
+                    <th mat-header-cell *matHeaderCellDef style="width: 50px;" class="text-center"> DNI </th>
+                    <td mat-cell *matCellDef="let element" class="text-center"> {{element.cDNI}} </td>
+                </ng-container>
+                <ng-container matColumnDef="cNombreCompleto">
+                    <th mat-header-cell *matHeaderCellDef> Nombres y apellidos</th>
+                    <td mat-cell *matCellDef="let element"> {{element.cNombreCompleto}} </td>
+                </ng-container>
+                <ng-container matColumnDef="cPerfil">
+                    <th mat-header-cell *matHeaderCellDef class="text-center"> Cargo</th>
+                    <td mat-cell *matCellDef="let element" class="text-center"> {{element.cPerfil}} </td>
+                </ng-container>
+                <ng-container matColumnDef="cFechaRegistro">
+                    <th mat-header-cell *matHeaderCellDef class="text-center"> Última Fecha ingreso</th>
+                    <td mat-cell *matCellDef="let element" class="text-center"> {{element.cFechaRegistro}} </td>
+                </ng-container>
+                <ng-container matColumnDef="cArea">
+                    <th mat-header-cell *matHeaderCellDef class="text-center"> Gerencia</th>
+                    <td mat-cell *matCellDef="let element" class="text-center"> {{element.cArea}} </td>
+                </ng-container>
+                <ng-container matColumnDef="cAgencia">
+                    <th mat-header-cell *matHeaderCellDef class="text-center"> Oficina</th>
+                    <td mat-cell *matCellDef="let element" class="text-center"> {{element.cAgencia}} </td>
+                </ng-container>
+                <ng-container matColumnDef="nCantidadIngresos">
+                    <th mat-header-cell *matHeaderCellDef class="text-center"> Cantidad ingresos</th>
+                    <td mat-cell *matCellDef="let element" class="text-center"> {{element.nCantidadIngresos}} </td>
+                </ng-container>
+
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+
+            <!-- <mat-paginator [pageSizeOptions]="_const.PAGINATION_SIZE_OPTIONS" [length]="pagination.nTotal" [pageIndex]="pagination.pageIndex"
+                [pageSize]="pagination.pageSize" (page)="onPaginatorEvent($event)">
+            </mat-paginator> -->
+        </div>
+
+    </div>
+</div>

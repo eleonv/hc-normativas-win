@@ -1,0 +1,97 @@
+<form [formGroup]="form" class="form-widh-sm">
+    <div class="row">
+        <div class="col-12">
+            <h6 class="form-title">
+                @if (accionForm == this._const.ACCION_FORM_NEW) {Registrar Reporte}
+                @else {Actualizar Reporte}
+            </h6>
+        </div>
+        @if (lCargaCompleta) {
+        <div class="col-md-12">
+            <mat-form-field appearance="outline" class="form-full-width">
+                <mat-label>Nombre</mat-label>
+                <input type="text" matInput #inpNormativa maxlength="800" formControlName="cNombre" name="cNombre">
+                <mat-hint align="end" [ngClass]="disabledForm ? 'hc-disabled-form' : ''">{{inpNormativa.value.length}} /
+                    800</mat-hint>
+            </mat-form-field>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <mat-form-field appearance="outline" class="form-full-width">
+                <mat-label>Fecha Inicial</mat-label>
+                <input type="text" matInput [matDatepicker]="pickerIni" formControlName="cFechaInicioCtr"
+                    name="cFechaInicioCtr">
+                <mat-hint [ngClass]="disabledForm ? 'hc-disabled-form' : ''">DD/MM/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="pickerIni"></mat-datepicker-toggle>
+                <mat-datepicker #pickerIni></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="col-md-4 mb-3">
+            <mat-form-field appearance="outline" class="form-full-width">
+                <mat-label>Fecha Final</mat-label>
+                <input type="text" matInput [matDatepicker]="pickerFin" formControlName="cFechaFinCtr"
+                    name="cFechaFinCtr">
+                <mat-hint [ngClass]="disabledForm ? 'hc-disabled-form' : ''">DD/MM/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="pickerFin"></mat-datepicker-toggle>
+                <mat-datepicker #pickerFin></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <!-- <div class="col-md-12">
+            <app-multipleselect [selectedItems]="perfilesSeledted" [datasource]="perfilesRaw"
+                [config]="configPerfilesMSelect" (result)="onSelectedPerfiles($event)" [disabled]="disabledForm"
+                [lTodosButton]="true" [lTodosSelect]="lTodoPerfil"></app-multipleselect>
+        </div> -->
+
+        <div class="col-md-12">
+            <app-multipleselect [selectedItems]="categoriasSeledted" [datasource]="categoriasRaw"
+                [config]="configCategoriasSelect" (result)="onSelectedTNormativa($event)" [disabled]="disabledForm"
+                [lTodosButton]="true" [lTodosSelect]="lTodoCategoria"></app-multipleselect>
+        </div>
+
+        <div class="col-md-12">
+            <app-multipleselect [selectedItems]="oficinasSeledted" [datasource]="oficinasRaw"
+                [config]="configOficinasSelect" (result)="onSelectedOficinas($event)" [disabled]="disabledForm"
+                [lTodosButton]="true" [lTodosSelect]="lTodoOficina"></app-multipleselect>
+        </div>
+
+        <div class="col-md-12">
+            <app-multipleselect [selectedItems]="areasSeledted" [datasource]="areasRaw" [config]="configAreasMSelect"
+                (result)="onSelectedAreas($event)" [disabled]="disabledForm" [lTodosButton]="true"
+                [lTodosSelect]="lTodoGerencia"></app-multipleselect>
+        </div>
+
+        <div class="col-md-12">
+            <app-multipleselect [selectedItems]="cargosSeledted" [datasource]="cargosRaw" [config]="configCargosSelect"
+                (result)="onSelectedCargos($event)" [disabled]="disabledForm || !lSelectCargo" [lTodosButton]="true"
+                [lTodosSelect]="lTodoCargo"></app-multipleselect>
+        </div>
+
+        <div class="col-md-12">
+            <mat-form-field appearance="outline" class="form-full-width">
+                <mat-label>Objetivo</mat-label>
+                <textarea matInput formControlName="cObjetivo" name="cObjetivo" rows="4"></textarea>
+            </mat-form-field>
+        </div>
+        }
+
+        <!-- <div class="col-12 mb-3">
+            <mat-divider></mat-divider>
+        </div> -->
+
+        <div class="col-12 mb-3">
+            @if (accionForm!=_const.ACCION_FORM_VIEW) {
+            <button type="button" mat-flat-button class="me-2" (click)="onGuardarReporte()"
+                [disabled]="form.invalid || invalidForm">Guardar</button>
+            <button type="button" mat-flat-button class="me-2" (click)="onAbrirVistaPrevia()"
+                [disabled]="form.invalid || invalidForm" color="accent">Vista previa</button>
+            <!-- <button type="button" mat-flat-button class="me-2" (click)="onGuardarCitacion()"
+                [disabled]="invalidForm">Guardar</button> -->
+            }
+
+
+            <button type="button" mat-button class="" (click)="onSalirForm()">Salir</button>
+
+        </div>
+    </div>
+</form>

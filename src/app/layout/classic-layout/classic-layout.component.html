@@ -1,0 +1,276 @@
+<div class="layout">
+    <nav class="fuse-vertical-navigation dark hc-theme-background print:hidden
+    fuse-vertical-navigation-animations-enabled fuse-vertical-navigation-appearance-default fuse-vertical-navigation-position-left ng-star-inserted fuse-vertical-navigation-mode-side"
+        [class]="{'fuse-vertical-navigation-opened': showNavigation}"
+        [style.visibility]="showNavigation ? 'visible' : 'hidden'">
+
+        <div class="fuse-vertical-navigation-wrapper">
+
+            <div class="fuse-vertical-navigation-header"></div>
+            <div class="fuse-vertical-navigation-content">
+                <div class="fuse-vertical-navigation-content-header">
+                    <div class="d-flex align-items-center justify-content-center h-20 p-6 pb-0">
+                        <img class="w-30" src="assets/images/logo/logo-white_horizontal.svg" alt="Logo image"
+                            style="height: 40px;">
+                    </div>
+                </div>
+
+
+                <div class="fuse-vertical-navigation-group-item">
+                    @for (item of menu; track $index) {
+                    <ng-container>
+
+                        @if (item.nameGrupo) {
+                        <div class="fuse-vertical-navigation-item-wrapper fuse-vertical-navigation-item-has-subtitle">
+                            <div class="fuse-vertical-navigation-item">
+
+                                <div class="fuse-vertical-navigation-item-title-wrapper">
+                                    <div class="fuse-vertical-navigation-item-title">
+                                        <span> {{item.nameGrupo}} </span>
+                                    </div>
+                                    <div class="fuse-vertical-navigation-item-subtitle text-gray-100	">
+                                        <span> {{item.descGrupo}} </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        }
+
+                        @for (subItem of item.submenu; track $index) {
+                        <ng-container>
+                            @if(subItem.type == _const.TIPO_MENU_BASIC) {
+                            <div class="fuse-vertical-navigation-basic-item">
+                                <div class="fuse-vertical-navigation-item-wrapper">
+                                    <a class="mat-mdc-tooltip-trigger fuse-vertical-navigation-item"
+                                        [class]="{'fuse-vertical-navigation-item-active': subItem.active}"
+                                        (click)="onActiveMenu(subItem)" [routerLink]="subItem.link">
+
+                                        <mat-icon class="fuse-vertical-navigation-item-icon"
+                                            [svgIcon]="subItem.nameIcon"></mat-icon>
+
+                                        <div class="fuse-vertical-navigation-item-title-wrapper">
+                                            <div class="fuse-vertical-navigation-item-title">
+                                                <span> {{subItem.name}} </span>
+                                            </div>
+                                        </div>
+
+                                        <!-- @if (subItem.hasBadge()) {
+                                        <div class="fuse-vertical-navigation-item-badge">
+                                            <div class="fuse-vertical-navigation-item-badge-content"
+                                                [class]="subItem.classBadge">
+                                                {{subItem.titleBadge}}
+                                            </div>
+                                        </div>
+                                        } -->
+
+                                    </a>
+                                </div>
+                            </div>
+                            } @else if(subItem.type == _const.TIPO_MENU_COLLAPSABLE) {
+                            <div class="fuse-vertical-navigation-collapsable-item" [class]="{
+                                'fuse-vertical-navigation-item-expanded': subItem.expanded,
+                                'fuse-vertical-navigation-item-collapsed': !subItem.expanded}">
+
+                                <div class="fuse-vertical-navigation-item-wrapper" (click)="onExpandedMenu(subItem)">
+                                    <div class="mat-mdc-tooltip-trigger fuse-vertical-navigation-item">
+
+                                        <mat-icon class="fuse-vertical-navigation-item-icon"
+                                            [svgIcon]="subItem.nameIcon"></mat-icon>
+
+                                        <div class="fuse-vertical-navigation-item-title-wrapper">
+                                            <div class="fuse-vertical-navigation-item-title">
+                                                <span> {{subItem.name}} </span>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="mat-icon fuse-vertical-navigation-item-arrow icon-size-4 mat-icon-no-color">
+                                            <mat-icon class="fuse-vertical-navigation-item-arrow icon-size-4"
+                                                [svgIcon]="'heroicons_solid:chevron-right'"></mat-icon>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                @if (subItem.expanded) {
+                                <div class="fuse-vertical-navigation-item-children animation-expandCollapse">
+
+                                    @for (subItemNivel2 of subItem.submenu; track $index) {
+                                    <div class="fuse-vertical-navigation-basic-item">
+                                        <div class="fuse-vertical-navigation-item-wrapper">
+
+
+                                            <a class="mat-mdc-tooltip-trigger fuse-vertical-navigation-item"
+                                                [class]="{'fuse-vertical-navigation-item-active': subItemNivel2.active}"
+                                                (click)="onActiveMenu(subItemNivel2)" [routerLink]="subItemNivel2.link">
+                                                <div class="fuse-vertical-navigation-item-title-wrapper">
+                                                    <div class="fuse-vertical-navigation-item-title">
+                                                        <span> {{subItemNivel2.name}} </span>
+                                                    </div>
+                                                </div>
+                                            </a>
+
+
+                                        </div>
+                                    </div>
+                                    }
+                                </div>
+                                }
+
+
+                            </div>
+                            }
+                        </ng-container>
+                        }
+                    </ng-container>
+                    }
+
+                </div>
+
+                <div class="fuse-vertical-navigation-divider-item">
+                    <div class="fuse-vertical-navigation-item-wrapper divider"></div>
+                </div>
+            </div>
+        </div>
+
+    </nav>
+    <div class="flex flex-col flex-auto w-full min-w-0">
+        <header class="relative flex flex-0 items-center w-full h-16 shadow print:hidden header bg-white">
+            <!-- <button type="button" class="mdc-icon-button mat-mdc-icon-button mat-unthemed mat-mdc-button-base">
+                button
+            </button> -->
+            <button class="mat-mdc-icon-button" mat-icon-button (click)="onToggleNavigation('mainNavigation')">
+                <mat-icon [svgIcon]="'heroicons_outline:bars-3'"></mat-icon>
+            </button>
+
+            <button mat-icon-button type="button" class="hc-nav-button ms-2" (click)="onBusquedaAvanzada()"
+                matTooltip="Búsqueda avanzada">
+                <mat-icon svgIcon="mat_solid:manage_search"></mat-icon>
+            </button>
+
+            <span class="dash-spacer-main"></span>
+            <!-- <span style="font-size: 12px;">{{user?.cNombreCorto}}</span> -->
+            <div>
+                <p class="hc-user-nombre">
+                    <span>{{user?.cNombreCorto}}</span><br>
+                    @if (this.nombrePerfil) {
+                    <span class="hc-user-perfil">{{this.nombrePerfil}}</span>
+                    }
+                </p>
+            </div>
+
+            <div class="flex items-center pl-2 ml-auto space-x-0.5 sm:space-x-2 ">
+                <div class="user">
+
+                    <button mat-icon-button [matMenuTriggerFor]="userActions">
+                        <mat-icon [svgIcon]="'heroicons_outline:user-circle'"></mat-icon>
+                    </button>
+
+                    <mat-menu [xPosition]="'before'" #userActions="matMenu" class="hc-mat-mdc-menu-panel"
+                        style="background-color: white!important;">
+                        <!-- <button mat-menu-item>
+                            <span class="flex flex-col leading-none">
+                                <span>Signed in as</span>
+                                <span class="mt-1.5 text-md font-medium">eleonvgmail.com</span>
+                            </span>
+                        </button>
+                        <mat-divider class="my-2"></mat-divider>-->
+                        <button mat-menu-item (click)="onIrAndesSuite()" type="button">
+                            <mat-icon [svgIcon]="'mat_outline:apps'"></mat-icon>
+                            <span>Ir Andes Suite</span>
+                        </button>
+                        <button mat-menu-item (click)="onCambiarPerfil()" type="button">
+                            <mat-icon [svgIcon]="'heroicons_outline:cog-8-tooth'"></mat-icon>
+                            <span>Cambiar perfil</span>
+                        </button>
+                        <!-- <button
+                        mat-menu-item
+                        [matMenuTriggerFor]="userStatus">
+                        <mat-icon [svgIcon]="'heroicons_outline:ellipsis-horizontal-circle'"></mat-icon>
+                        <span>Status</span>
+                    </button> -->
+                        <mat-divider class="my-2"></mat-divider>
+                        <button mat-menu-item (click)="onSignOut()" type="button">
+                            <mat-icon [svgIcon]="'heroicons_outline:arrow-right-on-rectangle'"></mat-icon>
+                            <span>Cerrar sesión</span>
+                        </button>
+                    </mat-menu>
+
+
+                </div>
+            </div>
+        </header>
+        <div class="flex flex-col flex-auto">
+            <div class="flex flex-col flex-auto min-w-0">
+                <!-- <div class="flex flex-col px-4 md:px-6 py-4 sm:py-4 border-b bg-card">
+                    <h4 class="font-extrabold tracking-tight leading-4 truncate"> Fields </h4>
+                </div>
+                <div class="flex-auto px-4 md:px-6 py-4 sm:py-4">
+                    <router-outlet></router-outlet>
+                </div> -->
+                <!-- <div class="section-title bg-white ">
+                    <h4 class="mb-0 fw-medium">
+                        Nueva Citación a Sesión de Directorio</h4>
+                </div>
+                <div class="section-main ">
+
+                    <div class="example-viewer">
+                        <div class="title ">
+                            <h4 class="mb-0"> Citación</h4>
+                        </div>
+                        <div class="cont">
+                            <div style="width: 600px;">
+                                <mat-form-field>
+                                    <mat-label>Input</mat-label>
+                                    <input matInput>
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>Select</mat-label>
+                                    <mat-select>
+                                        <mat-option value="one">First option</mat-option>
+                                        <mat-option value="two">Second option</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>Textarea</mat-label>
+                                    <textarea matInput></textarea>
+                                </mat-form-field>
+                            </div>
+
+
+                            <section>
+                                <div class="example-label">Flat</div>
+                                <div class="example-button-row">
+                                    <button mat-flat-button>Basic</button>
+                                    <button mat-flat-button color="primary">Primary</button>
+                                    <button mat-flat-button color="accent">Accent</button>
+                                    <button mat-flat-button color="warn">Warn</button>
+                                    <button mat-flat-button disabled>Disabled</button>
+                                    <a mat-flat-button href="https://www.google.com/" target="_blank">Link</a>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+
+                </div> -->
+
+
+                <!-- <div class="section-title bg-white d-flex align-items-center">
+                    <mat-icon svgIcon="mat_outline:snippet_folder" style="color: #616161;"></mat-icon>
+                    <h6 class="mb-0 fw-medium ms-1">
+                        Citaciones a sesiones de directorio</h6>
+                </div> -->
+                <div class="section-main ">
+                    <router-outlet></router-outlet>
+                </div>
+
+            </div>
+
+        </div>
+        <footer
+            class="relative flex flex-0 items-center justify-start w-full h-14 px-4 md:px-6 z-49 print:hidden bg-white">
+            <app-footer class="text-secondary" style="font-size: small; line-height: 1.3;"></app-footer>
+        </footer>
+
+
+    </div>
+</div>

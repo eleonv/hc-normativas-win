@@ -1,0 +1,37 @@
+<div mat-dialog-title class="hc-mat" style="padding-bottom: 0px!important;">
+    <p class="fs-6 fw-semibold">Busqueda</p>
+    <div>
+        <mat-form-field appearance="outline" class="form-full-width">
+            <mat-label>Filtrar</mat-label>
+            <input matInput (keyup)="onBusqueda($event)">
+        </mat-form-field>
+    </div>
+    <div>
+        <mat-checkbox matTooltip="Seleccionar todos" (change)="onCheckboxChangeAllSelect($event)">Seleccionar
+            todos</mat-checkbox>
+    </div>
+</div>
+
+<mat-dialog-content class="pt-0">
+
+    <table mat-table [dataSource]="dataSource">
+
+        <ng-container matColumnDef="check">
+            <!-- <th mat-header-cell *matHeaderCellDef style="display: none;"></th> -->
+            <td mat-cell *matCellDef="let element">
+                <mat-checkbox [ngModel]="element.check" (change)="onCheckboxChangeOneSelect($event, element)">
+                    {{element.name}}
+                </mat-checkbox>
+            </td>
+        </ng-container>
+
+        <!-- <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr> -->
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="center" class="mb-3">
+    <button type="button" mat-flat-button (click)="onEnviar()" [disabled]="invalid">Aceptar</button>
+    <button type="button" mat-button [mat-dialog-close]="dialogResult">Cancelar</button>
+</mat-dialog-actions>

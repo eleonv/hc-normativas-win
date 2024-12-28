@@ -1,0 +1,45 @@
+pdf-viewer {
+    display: block;
+    height: 100%;
+    min-height: 100%;
+    background-color: #eeeeee;
+}
+
+.container-viewpdf {
+    width: auto;
+    /*height: 700px;*/
+    /*margin: 10px;*/
+    /*border: 1px solid #555;*/
+    background: #eee;
+    border-radius: 2px;
+    border: 1px solid #dee2e6;
+}
+
+.texto-recortado {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.loading-viewpdf {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 56px;
+    right: 0;
+    background: rgba(0, 0, 0, 0.15);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media print {
+    * {
+        color: white !important;
+        background-color: white !important;
+        height: 1px !important;
+        overflow: hidden !important;
+        display: none !important;
+    }
+}

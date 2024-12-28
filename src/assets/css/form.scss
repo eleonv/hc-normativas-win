@@ -1,0 +1,16 @@
+.mat-mdc-dialog-actions {
+  padding: 12px 24px 12px 24px!important;
+}
+
+.form-label {
+  color: var(--form-font-color);
+  font-size: 0.95em !important;
+}
+
+.form-control:disabled {
+  background-color: #FAFAFA;
+  color: rgba(0, 0, 0, 0.75);
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.1);
+}

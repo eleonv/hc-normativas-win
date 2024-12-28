@@ -1,0 +1,214 @@
+<div class="row ">
+    <div class="col-12">
+        <h6 class="form-title d-flex align-items-center">
+            <mat-icon svgIcon="mat_outline:snippet_folder"></mat-icon> <span class="ms-1">Búsqueda avanzada</span>
+        </h6>
+    </div>
+
+    <div class="col-12">
+
+        <div class="mb-3">
+            <form [formGroup]="form">
+                <div class="mb-3 fw-medium">Filtros de búsqueda </div>
+                <form class="form-widh-sm">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <mat-form-field appearance="outline" class="form-full-width">
+                                <mat-label>Nombre normativa</mat-label>
+                                <input type="text" matInput maxlength="80" formControlName="cNombre" name="cNombre"
+                                    (keydown.enter)="onListarPorBusqueda()">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field appearance="outline" class="form-full-width">
+                                <mat-label>Palabra clave</mat-label>
+                                <input type="text" matInput maxlength="80" formControlName="cClave" name="cClave"
+                                    (keydown.enter)="onListarPorBusqueda()">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-md-4">
+                            <mat-form-field appearance="outline" class="form-full-width">
+                                <mat-label>Última actualización</mat-label>
+                                <mat-select formControlName="nUltimoFecha" name="nUltimoFecha">
+                                    <mat-option [value]="_const.FILTER_ULT_24H">Últimas 24 horas</mat-option>
+                                    <mat-option [value]="_const.FILTER_ULT_WEEK">Última semana</mat-option>
+                                    <mat-option [value]="_const.FILTER_ULT_MONTH">Último mes</mat-option>
+                                    <mat-option [value]="_const.FILTER_ULT_YEAR">Último año</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field appearance="outline" class="form-full-width">
+                                <mat-label>Gerencia</mat-label>
+                                <mat-select formControlName="idGerencia" name="idGerencia">
+                                    @for (item of areasRaw; track item) {
+                                    <mat-option [value]="item.idGerencia">{{item.cGerencia}}</mat-option>
+                                    }
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="d-flex justify-content-end">
+                                <button type="button" mat-flat-button class="me-2"
+                                    (click)="onListarPorBusqueda()">Buscar</button>
+                                <button type="button" mat-button class="" (click)="onLimpiarBusqueda()">Limpiar
+                                    filtro</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </form>
+        </div>
+        @if (this.totalResultados >= _const.TOTAL_REGISTROS) {
+        <div class="mb-3 fst-italic">Se encontraron {{this.totalResultados}} coincidencias. Para facilitar la
+            visualización, te sugerimos que ajustes los filtros de búsqueda para obtener resultados más específicos.
+        </div>
+        }
+        @else if (this.totalResultados >= 0 && this.totalResultados < _const.TOTAL_REGISTROS) { <div class="table-body">
+            <table class="table hc-table-basic">
+                <tr>
+                    <th style="width: 50px;">No.</th>
+                    <th>Nombre de normativa</th>
+                    <th style="width: 90px;" class="text-center">Versión</th>
+                    <th style="width: 140px;" class="text-center">Fecha vigencia</th>
+                    <th style="width: 150px;" class="text-center">Opciones</th>
+                </tr>
+                <tr>
+                    <td colspan="5" class="fw-medium bg-body-tertiary">
+                        <mat-icon svgIcon="mat_outline:snippet_folder" class="titulo"
+                            style="padding-bottom: 2px;"></mat-icon>
+                        <span class="bg-body-tertiary">Normativas</span>
+                    </td>
+                </tr>
+                @if (listDataNormativas && listDataNormativas.length > 0) {
+                <ng-container>
+                    @for (element of listDataNormativas; track element.idNormativa) {
+                    <tr>
+                        <td class="text-center">{{element.nPosicion}}</td>
+                        <td>{{element.cNombre}}</td>
+                        <td class="text-center">{{element.cVersion}}</td>
+                        <td class="text-center">{{element.cFechaVigencia}}</td>
+                        <td class="text-center">
+                            <div class="d-flex align-items-center justify-content-center titulo">
+                                @if (this.perfil.nCodigo == _const.COD_PERFIL_ADMINISTRADOR) {
+                                    <button mat-icon-button type="button" matTooltip="Descargar" (click)="onDescargar(element)">
+                                        <mat-icon svgIcon="mat_solid:download"></mat-icon>
+                                    </button>
+                                }
+                                <button mat-icon-button type="button" matTooltip="Registrar sugerencia"
+                                    (click)="onRegistrarSugerencia(element)">
+                                    <mat-icon svgIcon="heroicons_outline:chat-bubble-left-ellipsis"></mat-icon>
+                                </button>
+                                <button mat-icon-button type="button" matTooltip="Ver normativa"
+                                    (click)="onVerDocumento(element)">
+                                    <mat-icon svgIcon="mat_outline:pageview"></mat-icon>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    }
+                </ng-container>
+                } @else {
+                <ng-container>
+                    <tr>
+                        <td colspan="5">No se encontraron resultados para la búsqueda</td>
+                    </tr>
+                </ng-container>
+                }
+                <tr>
+                    <td colspan="5" class="fw-medium bg-body-tertiary">
+                        <mat-icon svgIcon="mat_outline:assistant_direction" class="titulo"
+                            style="padding-bottom: 2px;"></mat-icon>
+                        <span class="bg-body-tertiary">Guías</span>
+                    </td>
+                </tr>
+                @if (listDataGuias && listDataGuias.length > 0) {
+                <ng-container>
+                    @for (element of listDataGuias; track element.idNormativa) {
+                    <tr>
+                        <td class="text-center">{{element.nPosicion}}</td>
+                        <td>{{element.cNombre}}</td>
+                        <td class="text-center">{{element.cVersion}}</td>
+                        <td class="text-center">{{element.cFechaVigencia}}</td>
+                        <td class="text-center">
+                            <div class="d-flex align-items-center justify-content-center titulo">
+                                @if (this.perfil.nCodigo == _const.COD_PERFIL_ADMINISTRADOR) {
+                                    <button mat-icon-button type="button" matTooltip="Descargar" (click)="onDescargar(element)">
+                                        <mat-icon svgIcon="mat_solid:download"></mat-icon>
+                                    </button>
+                                }
+                                <button mat-icon-button type="button" matTooltip="Registrar sugerencia"
+                                    (click)="onRegistrarSugerencia(element)">
+                                    <mat-icon svgIcon="heroicons_outline:chat-bubble-left-ellipsis"></mat-icon>
+                                </button>
+                                <button mat-icon-button type="button" matTooltip="Ver normativa"
+                                    (click)="onVerDocumento(element)">
+                                    <mat-icon svgIcon="mat_outline:pageview"></mat-icon>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    }
+                </ng-container>
+                } @else {
+                <ng-container>
+                    <tr>
+                        <td colspan="5">No se encontraron resultados para la búsqueda</td>
+                    </tr>
+                </ng-container>
+                }
+                <tr>
+                    <td colspan="5" class="fw-medium bg-body-tertiary">
+                        <mat-icon svgIcon="mat_solid:work_outline" class="titulo"
+                            style="padding-bottom: 2px;"></mat-icon>
+                        <span class="bg-body-tertiary">Proyectos</span>
+                    </td>
+                </tr>
+                @if (listDataProyectos && listDataProyectos.length > 0) {
+                <ng-container>
+                    @for (element of listDataProyectos; track element.idNormativa) {
+                    <tr>
+                        <td class="text-center">{{element.nPosicion}}</td>
+                        <td>{{element.cNombre}}</td>
+                        <td class="text-center">{{element.cVersion}}</td>
+                        <td class="text-center">{{element.cFechaVigencia}}</td>
+                        <td class="text-center">
+                            <div class="d-flex align-items-center justify-content-center titulo">
+                                @if (this.perfil.nCodigo == _const.COD_PERFIL_ADMINISTRADOR) {
+                                    <button mat-icon-button type="button" matTooltip="Descargar" (click)="onDescargar(element)">
+                                        <mat-icon svgIcon="mat_solid:download"></mat-icon>
+                                    </button>
+                                }
+                                <button mat-icon-button type="button" matTooltip="Registrar sugerencia"
+                                    (click)="onRegistrarSugerencia(element)">
+                                    <mat-icon svgIcon="heroicons_outline:chat-bubble-left-ellipsis"></mat-icon>
+                                </button>
+                                <button mat-icon-button type="button" matTooltip="Ver normativa"
+                                    (click)="onVerDocumento(element)">
+                                    <mat-icon svgIcon="mat_outline:pageview"></mat-icon>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    }
+                </ng-container>
+                } @else {
+                <ng-container>
+                    <tr>
+                        <td colspan="5">No se encontraron resultados para la búsqueda</td>
+                    </tr>
+                </ng-container>
+                }
+
+            </table>
+    </div>
+    }
+    @else if (this.totalResultados == 0) {
+    <div class="mb-3 fst-italic">No se encontraron resultados para la búsqueda.</div>
+    }
+</div>
+
+</div>

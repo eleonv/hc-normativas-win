@@ -1,0 +1,60 @@
+:root {
+    --hc-border-color-mat: rgba(0, 0, 0, 0.12);
+    --hc-background-color-mat: #FFFFFF;
+}
+
+/* icons material */
+.hc-mini-icon .mat-mdc-icon-button.mat-mdc-button-base,
+.table-options .mat-mdc-icon-button.mat-mdc-button-base,
+.options .mat-mdc-icon-button.mat-mdc-button-base,
+.toolbar .mat-mdc-icon-button.mat-mdc-button-base {
+  width: 32px !important;
+  height: 32px !important;
+  padding: 0px !important;
+}
+
+.hc-mini-icon .mat-mdc-icon-button svg, .hc-mini-icon .mat-mdc-icon-button img,
+.table-options .mat-mdc-icon-button svg, .table-options .mat-mdc-icon-button img,
+.options .mat-mdc-icon-button svg, .options .mat-mdc-icon-button img,
+.toolbar .mat-mdc-icon-button svg, .toolbar .mat-mdc-icon-button img {
+  width: 18px !important;
+  height: 18px !important;
+}
+
+.hc-mini-icon .mat-icon,
+.table-options .mat-icon,
+.options .mat-icon,
+.toolbar .mat-icon {
+  width: 18px !important;
+  height: 18px !important;
+  min-width: 18px !important;
+}
+
+
+
+/* -------------------------------------------------------------------------- */
+/*  @ tablas
+/* -------------------------------------------------------------------------- */
+.hc-mat-mdc-table {
+    width: 100%!important;
+    /*max-height: 500px!important;*/
+    overflow: auto!important;
+}
+
+.hc-mat-mdc-menu-panel{
+    background-color: white!important;
+    border: 1px solid #E9E9E9!important;
+    width: 180px!important;
+}
+
+.mat-mdc-table, .mat-mdc-paginator {
+    background: none !important;
+}
+
+//.mat-expansion-panel:not([class*=mat-elevation-z])
+
+.mat-expansion-panel {
+    box-shadow: none!important;
+    border: 1px solid var(--hc-border-color-mat)!important;
+    background-color: var(--hc-background-color-mat)!important;
+}

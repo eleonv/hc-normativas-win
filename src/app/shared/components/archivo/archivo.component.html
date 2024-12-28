@@ -1,0 +1,77 @@
+@if (accionForm == this._const.ACCION_FORM_NEW) {
+<ng-container>
+    @if (!archivo) {
+    <div class="mb-3">
+        <div class="d-flex align-items-center ">
+            <button type="button" mat-stroked-button (click)="file.click()">Seleccionar archivo</button>
+            <input #file type="file" (change)="onFileSelected($event)" style="display: none" accept=".pdf" />
+            <span class="ms-2 fs-7">(Máx. 10Mb)</span>
+        </div>
+        <span class="mat-label-medium">*Es necesario incluir un archivo .pdf</span>
+    </div>
+    }
+</ng-container>
+<ng-container>
+    @if (archivo) {
+    <div class="">
+        <div class="d-flex align-items-center ">
+            <div class="d-inline-flex ms-1" style="overflow: hidden; max-width: 800px; max-height: 20px;">
+                <span>{{archivo.name}}</span>
+                <!-- @if (!archivo?.isRecovery) { -->
+                <span class="ms-2 fs-7">({{archivo.sizeDesc}})</span>
+                <!-- } -->
+            </div>
+            <div class="ms-auto">
+                <div class="hc-mini-icon">
+
+                    @if(isUploadFileLocal) {
+                    <button mat-icon-button type="button" matTooltip="Subir archivo" (click)="onUploadFile()">
+                        <mat-icon svgIcon="mat_outline:file_upload"></mat-icon>
+                    </button>
+                    }
+                    <button mat-icon-button type="button" matTooltip="Eliminar archivo"
+                        (click)="onEliminarArchivoUpload()" [disabled]="progressBarFile">
+                        <mat-icon svgIcon="mat_outline:close"></mat-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        @if(progressBarFile) {
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        }
+        @if(!progressBarFile) {
+        <mat-divider></mat-divider>
+        }
+        @if(isUploadFileLocal) {
+        <span class="mat-label-medium error">*Recuerde subir el archivo</span>
+        }
+    </div>
+    }
+</ng-container>
+} @else if (accionForm == this._const.ACCION_FORM_EDIT || accionForm == this._const.ACCION_FORM_VIEW) {
+<ng-container>
+    <!-- @if (archivo) { -->
+    <div class="">
+        <div class="d-flex align-items-center ">
+            <div class="d-inline-flex ms-1" style="overflow: hidden; max-width: 800px; max-height: 20px;">
+                <span>{{archivo?.name}}</span>
+                <!-- <span [ngClass]="disabled ? 'hc-disabled-form' : ''">Archi</span> -->
+            </div>
+            @if (accionForm == this._const.ACCION_FORM_EDIT) {
+            <div class="ms-auto">
+                <div class="hc-mini-icon">
+                    <button mat-icon-button type="button" matTooltip="Eliminar archivo"
+                        (click)="onEliminarArchivoUpload()">
+                        <mat-icon svgIcon="mat_outline:close"></mat-icon>
+                    </button>
+                </div>
+
+            </div>
+            }
+        </div>
+        <mat-divider></mat-divider>
+    </div>
+    <!-- } -->
+</ng-container>
+}

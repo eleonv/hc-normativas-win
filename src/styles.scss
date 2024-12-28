@@ -1,0 +1,304 @@
+@import 'assets/css/fuse/vertical/default.scss';
+@import 'assets/css/fuse/fuse.scss';
+@import 'assets/css/welcome.scss';
+@import 'assets/css/tree.scss';
+@import 'assets/css/form.scss';
+@import 'assets/css/material.scss';
+@import 'assets/css/hc.scss';
+@import 'assets/css/viewpdf.scss';
+
+/* You can add global styles to this file, and also import other style files */
+
+:root {
+    --form-font-color: #616161;
+    --dialog-font-color: #424242;
+    --hc-border-color: rgba(0, 0, 0, 0.12);
+    --hc-color_primary: #1a237e;
+
+    --mat-option-label-text-size: 0.97rem !important;
+
+    --mdc-filled-text-field-disabled-label-text-color: rgba(26, 27, 31, 0.65);
+    --mdc-filled-text-field-disabled-input-text-color: rgba(26, 27, 31, 0.65);
+    --mdc-outlined-text-field-disabled-label-text-color: rgba(26, 27, 31, 0.65);
+    --mdc-outlined-text-field-disabled-input-text-color: rgba(26, 27, 31, 0.65);
+    --mat-form-field-select-disabled-option-text-color: rgba(26, 27, 31, 0.65);
+    --mat-select-disabled-trigger-text-color: rgba(26, 27, 31, 0.65);
+    --mdc-chip-disabled-label-text-color: rgba(26, 27, 31, 0.65);
+    --mdc-text-button-disabled-label-text-color: rgba(26, 27, 31, 0.65);
+    --mdc-protected-button-disabled-label-text-color: rgba(26, 27, 31, 0.65);
+    --mdc-filled-button-disabled-label-text-color: rgba(26, 27, 31, 0.65);
+    --mdc-outlined-button-disabled-label-text-color: rgba(26, 27, 31, 0.65);
+    --mat-standard-button-toggle-disabled-state-text-color: rgba(26, 27, 31, 0.65);
+    --mat-standard-button-toggle-disabled-selected-state-text-color: rgba(26, 27, 31, 0.65);
+    --mat-datepicker-calendar-date-disabled-state-text-color: rgba(26, 27, 31, 0.65);
+    --mat-datepicker-range-input-disabled-state-text-color: rgba(26, 27, 31, 0.65);
+    --mat-expansion-header-disabled-state-text-color: rgba(26, 27, 31, 0.65);
+
+    --mdc-outlined-button-disabled-outline-color: rgba(26, 27, 31, 0.12);
+
+    --hc-theme-primary: #204772;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+
+    /*background-color: rgba(241, 245, 249, 1) !important;*/
+    background-color: #FFFFFF !important;
+}
+
+/*html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }*/
+
+
+.loading {
+    position: fixed;
+    top: 0;
+    z-index: 999;
+    width: 100%;
+    height: 6px;
+}
+
+.shadow {
+    /*--tw-shadow-color: #000000;
+  --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / .1), 0 1px 2px -1px rgb(0 0 0 / .1) !important;
+  --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color) !important;
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow) !important;*/
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / .1) !important;
+}
+
+
+footer {
+    border-top: 1px solid #eeeeee;
+}
+
+
+table {
+    font-size: 0.85rem !important;
+}
+
+h3.dialog {
+    margin: 0 !important;
+}
+
+.dialog-content-style {
+    color: var(--dialog-font-color) !important;
+    width: 350px !important;
+    text-align: center !important;
+}
+
+.dialog-content {
+    margin-top: 32px !important;
+    padding-bottom: 0 !important;
+    padding-top: 0 !important;
+}
+
+/* **** */
+.header {
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+}
+
+.section-title {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+
+    padding-left: 2.5rem !important;
+    padding-right: 2.5rem !important;
+
+    border-bottom-width: 1px;
+    border-bottom: 1px solid rgba(226, 232, 240, 1);
+}
+
+.section-main {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+
+    padding-left: 2.5rem !important;
+    padding-right: 2.5rem !important;
+
+
+}
+
+.form-full-width {
+    width: 100%;
+}
+
+.form-title {
+    font-weight: 500 !important;
+    color: var(--hc-color_primary);
+}
+
+.icon-color-active {
+    color: #3f51b5 !important;
+}
+
+.form-widh-sm {
+    width: 100% !important;
+}
+
+.w-100 {
+    width: 100% !important;
+}
+
+.table-full-width {
+    width: 100%;
+}
+
+.hc-table {
+    width: 100%;
+
+    td {
+        vertical-align: middle;
+        padding-top: 1px;
+        padding-bottom: 1px;
+
+        border-bottom-color: var(--hc-border-color) !important;
+    }
+
+    th {
+        border-bottom-color: var(--hc-border-color) !important;
+    }
+}
+
+.hc-table-basic {
+    width: 100%;
+
+    td,
+    th {
+        //border: 1px solid blue;
+        vertical-align: middle;
+        padding: 5px 10px !important;
+        border-bottom: 1px solid #1a237e !important;
+        border-bottom-color: var(--hc-border-color) !important;
+    }
+
+    .titulo {
+        vertical-align: middle;
+        //width: 20px !important;
+        height: 35px !important;
+        min-width: 20px !important;
+        min-height: 20px !important;
+        font-size: 20px !important;
+        line-height: 20px !important;
+        padding: 0;
+        margin: 0;
+    }
+}
+
+.full-width {
+    width: 100%;
+}
+
+.hc-tab .mat-mdc-tab-labels {
+    border-bottom: 1px solid #E0E0E0;
+}
+
+
+
+
+.table-body {
+    border: 1px solid var(--hc-border-color);
+}
+
+
+.example-viewer {
+    /*display: flex;
+    flex-direction: column;*/
+    /*margin: 32px 0;*/
+    /*overflow: hidden;*/
+    --tw-bg-opacity: 1;
+    background-color: #FFFFFF;
+    border-radius: 0.5rem;
+    /*--tw-shadow: 0 1px 3px 0 rgb(0 0 0 / .1), 0 1px 2px -1px rgb(0 0 0 / .1);
+    --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);*/
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / .1) !important;
+}
+
+.example-viewer .title {
+    /*display: flex;
+    align-items: center;
+    justify-content: space-between;*/
+    /*height: 88px;
+    min-height: 88px;
+    max-height: 88px;*/
+    /*padding: 0 40px;*/
+    padding: 2rem 2rem 1.5rem 2rem !important;
+}
+
+.example-viewer .cont {
+    padding: 2rem !important;
+    padding-top: 0 !important;
+}
+
+
+/* ***** ************************** */
+
+/*@import 'assets/css/tree.scss';*/
+
+.small-height .mat-form-field-wrapper {
+    padding-bottom: 0;
+    border: 1px solid red;
+}
+
+.small-height .mat-form-field-flex {
+    padding: 0.5em 0;
+    /* Adjust as needed */
+    border: 1px solid red;
+}
+
+.small-height .mat-form-field-label-wrapper {
+    top: 0.5em;
+    /* Adjust as needed */
+    border: 1px solid red;
+}
+
+
+.fs-7 {
+    font-size: 0.8rem !important;
+}
+
+.mat-mdc-paginator {
+    border-top: 1px solid #E0E0E0;
+}
+
+
+.hc-mat::before {
+    height: 0px !important;
+}
+
+.hc-disabled-form {
+    color: var(--mdc-filled-text-field-disabled-label-text-color);
+
+    .mdc-notched-outline__leading,
+    .mdc-notched-outline__notch,
+    .mdc-notched-outline__trailing {
+        border-color: var(--mdc-outlined-button-disabled-outline-color) !important;
+    }
+}
+
+.hc-theme-background,
+.hc-welcome-container {
+    background-color: var(--hc-theme-primary);
+}
+
+/*.hc-welcome-container {
+    background-color: #387DC6;
+}*/
+.hc-user-nombre {
+    line-height: normal;
+    margin-bottom: 0;
+    font-size: 0.75rem; //12px
+    margin-bottom: 0px !important;
+    text-align: right;
+}
+
+.hc-user-perfil {
+    font-size: 0.61rem; //10px
+}

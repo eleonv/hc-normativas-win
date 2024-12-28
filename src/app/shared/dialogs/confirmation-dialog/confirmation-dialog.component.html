@@ -1,0 +1,21 @@
+@if (showTitle) {
+<h3 class="dialog text-center" mat-dialog-title>{{title}}</h3>
+<mat-dialog-content class="dialog-content-style">
+  <span>{{message}}</span>
+    @if (showDetail) {
+      <br><div>{{detail}}</div>
+    }
+</mat-dialog-content>
+} @else {
+<mat-dialog-content class="dialog-content-style dialog-content">
+  <span>{{message}}</span>
+  @if (showDetail) {
+    <br><div>{{detail}}</div>
+  }
+</mat-dialog-content>
+}
+
+<mat-dialog-actions align="center">
+    <button type="button" mat-button (click)="onOk()">Si</button>
+    <button type="button" mat-button [mat-dialog-close]="dialogResult">No</button>
+</mat-dialog-actions>

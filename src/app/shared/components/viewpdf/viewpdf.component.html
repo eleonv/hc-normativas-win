@@ -1,0 +1,68 @@
+<div style=" height: 100%">
+    @if (isLoadingResults) {
+    <div class="loading-viewpdf">
+        <mat-spinner></mat-spinner>
+    </div>
+    }
+
+    <div class="mb-1 px-2" style="border: 1px solid white!important;">
+        <div class="row">
+            <div class="col-md-11 d-flex align-items-center">
+                <button type="button" mat-icon-button (click)="onRegresar()" matTooltip="Regresar" *ngIf="!lOpenWindow">
+                    <mat-icon svgIcon="heroicons_outline:arrow-left"></mat-icon></button>
+                <div style="overflow: hidden;" class="ms-2">
+                    <span class="text-break texto-recortado">{{nombreFile}}</span>
+                </div>
+            </div>
+            <div class="col-md-1">
+                <div class="d-flex flex-row-reverse align-items-center">
+                    <button mat-icon-button (click)="onZoomScaleWitdh()" matTooltip="Ajustar al ancho">
+                        <svg style="width:24px;height:24px" viewBox="0 0 24 24" width="24" height="24">
+                            <path fill="gray"
+                                d="M9,11H15V8L19,12L15,16V13H9V16L5,12L9,8V11M2,20V4H4V20H2M20,20V4H22V20H20Z" />
+                        </svg>
+                    </button>
+                    <button mat-icon-button (click)="onZoomScaleHeight()" matTooltip="Ajustar alto">
+                        <svg style="width:24px;height:24px" viewBox="0 0 24 24" width="24" height="24">
+                            <path fill="gray"
+                                d="M13,9V15H16L12,19L8,15H11V9H8L12,5L16,9H13M4,2H20V4H4V2M4,20H20V22H4V20Z" />
+                        </svg>
+                    </button>
+                    <button mat-icon-button (click)="openWindow()" matTooltip="Abrir en nueva ventana"
+                        *ngIf="!lOpenWindow">
+                        <mat-icon style="color: #7B7C7C!important;">open_in_new</mat-icon>
+                    </button>
+
+                    <button mat-icon-button type="button" matTooltip="Descargar" (click)="onDescargar(infoPdf)"
+                        *ngIf="lDescarga">
+                        <mat-icon svgIcon="mat_solid:download"></mat-icon>
+                    </button>
+
+                    <button mat-icon-button type="button" matTooltip="Imprimir" (click)="onPrint()" *ngIf="lImprimir">
+                        <mat-icon svgIcon="mat_solid:print"></mat-icon>
+                    </button>
+
+
+                    <!-- <button mat-icon-button (click)="onDownload()" matTooltip="Descargar">
+                        <mat-icon svgIcon="mat_outline:file_download"></mat-icon>
+                    </button>
+                    <button mat-icon-button (click)="onPrint()" matTooltip="Descargar">
+                        <mat-icon svgIcon="mat_outline:print"></mat-icon>
+                    </button> -->
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <mat-drawer-container class="container-viewpdf"
+        [ngStyle]="{ height: !lOpenWindow ? heigthPdfViewer + 'px' : '100%' }">
+        <mat-drawer-content>
+            <pdf-viewer [src]="pdfSrc" [render-text]="false" [zoom]="0.96" [original-size]="false"
+                [original-size]="false" [zoom-scale]="isZoomScalePageWidth ? 'page-width' : 'page-height'"
+                (after-load-complete)="onLoadComplete($event)"></pdf-viewer>
+
+        </mat-drawer-content>
+    </mat-drawer-container>
+</div>
