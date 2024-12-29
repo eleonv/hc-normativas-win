@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
@@ -33,5 +33,30 @@ export class SecurityService {
 
     actualizarPerfil(): Observable<any> {
         return this.http.post<any>(this.url2 + "actualizar-registrar-perfil", null);
+    }
+
+
+    login(usuario: any): Observable<any> {
+        //return this.http.post<any>(this.apiUrl + "", usuario);
+        return this.http.post<any>(this.url2 + 'autenticacion', usuario);
+    }
+
+    getCaptcha(): Observable<any> {
+        return this.http.get<any>(this.url2 + 'captcha/generar-captcha');
+    }
+
+    getPerfilesAS(): Observable<any> {
+        return this.http.get<any>(this.url2 + 'perfil/consultar-perfiles');
+    }
+
+    getAgencias(): Observable<any> {
+        return this.http.get<any>(this.url2 + 'agencia/consultar-agencias');
+    }
+
+    getTokenFinal(idAgencia: number, idPerfil: number): Observable<any> {
+        let params = new HttpParams();
+        if (idAgencia) params = params.set('idAgencia', idAgencia);
+        if (idPerfil) params = params.set('idPerfil', idPerfil);
+        return this.http.get<any>(this.url2 + 'token/obtener-token', { params });
     }
 }

@@ -20,7 +20,7 @@ export class AppComponent {
         });
     }
 
-    @HostListener('document:keydown', ['$event'])
+    /*@HostListener('document:keydown', ['$event'])
     onKeyDown(event: KeyboardEvent) {
         if (event.key === 'p' && (event.ctrlKey || event.metaKey)) {
             event.preventDefault(); // Prevenir atajo de teclado para imprimir
@@ -36,5 +36,5 @@ export class AppComponent {
     @HostListener('document:contextmenu', ['$event'])
     handleMouseRightClick(event: MouseEvent) {
         event.preventDefault();
-    }
+    }*/
 }

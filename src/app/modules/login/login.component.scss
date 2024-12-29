@@ -1,0 +1,203 @@
+.containera {
+    display: flex;
+    height: 100vh;
+}
+
+.tittle {
+    margin: 1rem AUTO;
+    color: #14202d;
+
+}
+
+.left-side {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.btn-ubicado {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.login-card {
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+    width: 70%;
+}
+
+.login-title {
+    text-align: center;
+}
+
+.form.s {
+    display: flex;
+    flex-direction: column;
+}
+
+.input {
+    width: 100%;
+}
+
+.cont-img {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.imgCaptcha {
+    width: 50%;
+    height: 3rem;
+    /*border: .5px solid #214b6c;*/
+    border-radius: 5px;
+}
+
+.img-reload {
+    margin: 0 .5rem;
+}
+
+.btn {
+    display: flex;
+    margin: 0 auto;
+    width: 40%;
+}
+
+.btnsubmit {
+    display: flex;
+    margin: 0 auto;
+    width: 80% !important;
+    border-radius: 9999px;
+}
+
+.right-side {
+    flex: 2.5;
+    width: auto;
+    display: flex;
+    background-color: #214b6c;
+    padding: 1.5rem;
+}
+
+.textos {
+    color: #fff;
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    justify-content: center;
+    padding-right: 1rem;
+}
+
+.logo {
+    width: 10rem;
+    margin-bottom: 2rem;
+}
+
+.logo-card {
+    height: 55px;
+    text-align: center;
+    margin-bottom: 1.75rem;
+}
+
+.cajas {
+    width: 45%;
+    display: flex;
+    height: auto;
+}
+.suite-p {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+.suite {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.suite-p::-webkit-scrollbar {
+    display: none;
+}
+
+.card-m {
+    width: 30%;
+    height: auto;
+
+}
+
+.tab1 {
+    display: flex !important;
+    width: 100% !important;
+    background-color: #fff;
+}
+
+.tab {
+    padding: 1.5rem 0;
+    display: flex !important;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100% !important;
+    background-color: #214b6c;
+}
+
+.item-card {
+    width: 30%;
+    margin: 5px 0;
+}
+
+.primary {
+    color: #214b6c;
+    font-weight: bold;
+    white-space: normal;
+}
+
+.primary:hover,
+.primary-2:hover {
+    cursor: pointer;
+}
+
+.primary-2 {
+    color: #214b6c;
+    font-weight: bold;
+    font-size: smaller;
+    white-space: normal;
+}
+
+.mb-3 {
+    margin-bottom: 1rem;
+}
+.vinculo{
+    cursor: pointer;
+}
+.vinculo:hover{
+    color: #b7d5e6;
+}
+mat-card {
+    width: 100%;
+    max-width: 400px;
+}
+
+@media (max-width: 768px) {
+    .containera {
+        flex-direction: column;
+    }
+    .suite, .suite-p {
+        flex-direction: column;
+    }
+
+    .card-m {
+        width: 100%;
+    }
+
+    .login-card {
+        width: 100%;
+        height: 90vh;
+        justify-content: center;
+    }
+}

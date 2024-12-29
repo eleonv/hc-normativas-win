@@ -11,8 +11,9 @@ export const authGuard: CanActivateFn = (route, state) => {
   if (AuthUtility.isAuthenticated()) {
     return true;
   } else {
-    let urlIdentity = environment.URL_IDENTITY;
-    window.open(urlIdentity + Constante.URL_IDENTITY_DASHBOARD_HOME, '_self');
+    //let urlIdentity = environment.URL_IDENTITY;
+    //window.open(urlIdentity + Constante.URL_IDENTITY_DASHBOARD_HOME, '_self');
+    router.navigate(['/login']);
     return false;
   }
 

@@ -1,0 +1,59 @@
+<p>login works!</p>
+
+<button type="button" (click)="login()">Login</button>
+
+
+<div class="containera">
+    <div class="left-side">
+        <!-- <button mat-fab (click)="changeStyle()" class="btn-ubicado"><mat-icon>apps</mat-icon></button> -->
+
+        <div class="login-card">
+            <div class="logo-card d-flex justify-content-end">
+                <img src="logo-blue_horizontal.svg" />
+            </div>
+
+
+            <h6 class="login-title">Iniciar Sesión</h6>
+            <div>
+                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form-s">
+                    <mat-form-field appearance="outline" class="input">
+                        <mat-label>Usuario</mat-label>
+                        <input matInput formControlName="cUserName" required maxlength="30"
+                            placeholder="username@email.com" data-field="useremail" data-validation="required"
+                            autocomplete="email">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="input">
+                        <mat-label>Contraseña</mat-label>
+                        <input matInput [type]="hide ? 'password' : 'text'" formControlName="cPassword" required
+                            maxlength="20" data-field="password" data-validation="required">
+                        <button type="button" mat-icon-button matSuffix (click)="hide = !hide">
+                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                    </mat-form-field>
+
+
+                    <div class="cont-img">
+                        <!-- <re-captcha (resolved)="resolved($event)" (errored)="errored()" errorMode="handled"
+                            required></re-captcha> -->
+                    </div>
+
+
+
+                    <p class="mat-label-large" *ngIf="error" style="color: red;">*{{errorTexto}}</p>
+                    <button mat-flat-button color="primary" type="submit" class="btnsubmit" [disabled]="btnDisabled"
+                        data-action="login">Ingresar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="right-side mat-elevation-z12" id="apps">
+
+        <div class="textos">
+            <p class="mat-display-small"><strong>Bienvenido a Andes Suite</strong></p>
+            <p class="mat-body-large">Explora todos tus sistemas desde un solo lugar. Con Andes Suite, disfruta de una
+                experiencia unificada y eficiente que te permite acceder a todas tus herramientas y servicios con un
+                solo inicio de sesión.</p>
+        </div>
+        <img src="cajas.svg" class="cajas" />
+    </div> -->
+</div>

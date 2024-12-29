@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { AuthUtility } from '../../utility/auth-utility';
 import { environment } from '../../../environments/environment';
 import { Constante } from '../../utility/constante';
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -14,7 +15,7 @@ export class AppService {
 
     version: string = environment.VERSION;
 
-    constructor() { }
+    constructor(private router: Router) { }
 
     // loading
     getValueLoading() {
@@ -41,8 +42,9 @@ export class AppService {
     // methods
     goSignOut() {
         AuthUtility.closeSessionData();
-        let urlIdentity = environment.URL_IDENTITY;
-        window.open(urlIdentity + Constante.URL_IDENTITY_SIGN_OUT, '_self');
+        //let urlIdentity = environment.URL_IDENTITY;
+        //window.open(urlIdentity + Constante.URL_IDENTITY_SIGN_OUT, '_self');
+        this.router.navigate(['/login']);
     }
 
     goAndesSuite() {

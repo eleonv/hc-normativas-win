@@ -125,7 +125,7 @@ export class AuthPerfilComponent {
 
                         AuthUtility.setValueUserAS(_user);
                         this.user = AuthUtility.getValueUserAS();
-                        
+
                     }
                     else {
                         this.lAcceso = false
@@ -179,10 +179,10 @@ export class AuthPerfilComponent {
 
     //#region Eventos
     onIngresarApp() {
-        /*this.router.navigate([Constante.URL_DASHBOARD]);
-        AuthUtility.setPerfil(this.perfil);*/
+        AuthUtility.setPerfil(this.perfil);
+        this.router.navigate([Constante.URL_DASHBOARD]);
 
-        this.appService.activateLoading();
+        /*this.appService.activateLoading();
         this.normativaService.logIngresoApp()
             .pipe(take(1), takeUntilDestroyed(this.destroyRef))
             .subscribe({
@@ -192,7 +192,7 @@ export class AuthPerfilComponent {
                     AuthUtility.setPerfil(this.perfil);
                     this.router.navigate([Constante.URL_DASHBOARD]);
                 }
-            });
+            });*/
     }
 
     onPerfilSeleccionado($event: any) {
