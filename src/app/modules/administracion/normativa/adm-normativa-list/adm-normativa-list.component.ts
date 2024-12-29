@@ -97,14 +97,14 @@ export class AdmNormativaListComponent {
 
     //#region Methods
     listarRegistros(): void {
-        console.log('llego a listar')
+        //console.log('llego a listar')
         this.appService.activateLoading();
         this.normativaService.listNormativas(this.pagination, this.filterSearch)
             .pipe(take(1), takeUntilDestroyed(this.destroyRef))
             .subscribe({
                 next: (response: any) => {
                     this.appService.disableLoading();
-                    console.log("Response", response);
+                    //console.log("Response", response);
 
                     if (response.success == Constante.STATUS_OK) {
 
@@ -181,7 +181,7 @@ export class AdmNormativaListComponent {
                         .subscribe({
                             next: (response: any) => {
                                 this.appService.disableLoading();
-                                console.log("Response", response);
+                                //console.log("Response", response);
 
                                 this.listarRegistros();
                             },
@@ -196,7 +196,7 @@ export class AdmNormativaListComponent {
     }
 
     onListarPorBusqueda() {
-        console.log('cusacndo')
+        //console.log('cusacndo')
         let _cNombre: any = this.form.get('cNombre')?.value;
         let _idTipo: any = this.form.get('idTipo')?.value;
 
@@ -233,7 +233,7 @@ export class AdmNormativaListComponent {
     }
 
     onPaginatorEvent(event: any) {
-        //console.log(event);
+        ////console.log(event);
         this.pagination.pageSize = event.pageSize;
         this.pagination.pageIndex = event.pageIndex;
         this.listarRegistros();

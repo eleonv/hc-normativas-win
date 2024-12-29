@@ -70,7 +70,7 @@ export class AdmTiponormativaRegComponent {
 
     //#region Metodos
     nuevoRegistro(tipoNormativa: any) {
-        //console.log("tipoNormativa: ", tipoNormativa);
+        ////console.log("tipoNormativa: ", tipoNormativa);
 
         this.appService.activateLoading();
         this.tipoNormativaService.saveTipoNormativa(tipoNormativa)
@@ -98,7 +98,7 @@ export class AdmTiponormativaRegComponent {
     }
 
     actualizarRegistro(tipoNormativa: any) {
-        //console.log("normativa: ", normativa);
+        ////console.log("normativa: ", normativa);
 
         this.appService.activateLoading();
         this.tipoNormativaService.updateTipoNormativa(tipoNormativa)
@@ -135,7 +135,7 @@ export class AdmTiponormativaRegComponent {
                     return
                 }
 
-                console.log("tipoNormativa: ", tipoNormativa);
+                //console.log("tipoNormativa: ", tipoNormativa);
                 this.tipoNormativaData.idTipo = tipoNormativa.id;
                 this.tipoNormativaData.cNombre = tipoNormativa.cNombre;
                 this.tipoNormativaData.nTipoPadre = tipoNormativa.cTipo;

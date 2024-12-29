@@ -1,4 +1,4 @@
-import { Component, DestroyRef } from '@angular/core';
+import { Component, DestroyRef, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ReactiveFormsModule, Validators, FormBuilder, FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -16,6 +16,8 @@ import { AppService } from '../../../../services/core/app.service';
 import { Constante } from '../../../../utility/constante';
 import { PerfilService } from '../../../../services/perfil.service';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MultipleselectComponent } from '../../../../shared/components/multipleselect/multipleselect.component';
+import { ChipItem } from '../../../../models/core/chips';
 
 @Component({
     selector: 'app-adm-perfil-reg',
@@ -31,7 +33,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
         MatCardModule,
         MatDividerModule,
         MatCheckboxModule,
-        FormsModule
+        FormsModule,
+        MultipleselectComponent,
     ],
     templateUrl: './adm-perfil-reg.component.html',
     styleUrl: './adm-perfil-reg.component.scss'
@@ -51,6 +54,19 @@ export class AdmPerfilRegComponent {
     lImprime: any
     lDescarga: any
 
+    listaGerencias: any[] = []
+    nTipo: number = 1;
+
+    readonly configAreasMSelect = { label: 'Gerencias', button: 'Agregar' };
+    areasSeledted = signal<any[]>([]);
+    areasRaw: ChipItem[] = [];
+
+    disabledForm: boolean = false;
+    lTodoGerencia: boolean = false;
+    idAreas: number[] = [];
+    listadoGer: any;
+
+
     constructor(
         private fb: FormBuilder,
         private perfilService: PerfilService,
@@ -61,10 +77,9 @@ export class AdmPerfilRegComponent {
         private activatedRoute: ActivatedRoute,
     ) {
         let _accionForm = this.activatedRoute.snapshot.data['accionForm'];
-
-        this.accionForm = this._const.ACCION_FORM_NEW;
         if (_accionForm) {
             this.accionForm = _accionForm;
+            this.listarGerencias()
         }
 
         if (this.accionForm == this._const.ACCION_FORM_EDIT) {
@@ -76,8 +91,29 @@ export class AdmPerfilRegComponent {
 
 
     //#region Metodos
+    listarGerencias() {
+        this.appService.activateLoading();
+        this.perfilService.listAreas()
+            .pipe(take(1), takeUntilDestroyed(this.destroyRef))
+            .subscribe({
+                next: (response: any) => {
+                    this.appService.disableLoading();
+                    ////console.log("Areas", response);
+
+                    if (response.success == Constante.STATUS_OK) {
+                        this.listaGerencias = response.data;
+                        let listado = response.data;
+                        this.areasRaw = listado.map((item: any) => {
+                            return { id: item.idGerencia, name: item.cGerencia, check: false };
+                        });
+                    } else {
+                        this.toastr.warning(response.message, this._const.MESSAGE_TITLE_WARNING);
+                    }
+                },
+            });
+    }
     nuevoRegistro(perfil: any) {
-        //console.log("tipoNormativa: ", tipoNormativa);
+        ////console.log("tipoNormativa: ", tipoNormativa);
 
         this.appService.activateLoading();
         this.perfilService.savePerfil(perfil)
@@ -105,7 +141,7 @@ export class AdmPerfilRegComponent {
     }
 
     actualizarRegistro(perfil: any) {
-        //console.log("normativa: ", normativa);
+        ////console.log("normativa: ", normativa);
 
         this.appService.activateLoading();
         this.perfilService.updatePerfil(perfil)
@@ -146,10 +182,16 @@ export class AdmPerfilRegComponent {
                 this.perfilData.cNombre = perfil.cNombre;
 
                 this.form.controls.cNombre.setValue(this.perfilData.cNombre);
-                this.form.controls.lImprime.setValue(perfil.nImprime == 1? true : false);
-                this.lImprime = perfil.nImprime == 1? true : false
-                this.form.controls.lDescarga.setValue(perfil.nDescarga == 1? true : false);
-                this.lDescarga = perfil.nDescarga == 1? true : false
+                this.form.controls.lImprime.setValue(perfil.nImprime == 1 ? true : false);
+                this.lImprime = perfil.nImprime == 1 ? true : false
+                this.form.controls.lDescarga.setValue(perfil.nDescarga == 1 ? true : false);
+                this.lDescarga = perfil.nDescarga == 1 ? true : false
+                this.nTipo = perfil.nTipo
+
+                perfil.lstGerencias.forEach((x: any) => {
+                    this.areasSeledted.update(item => [...item, { id: x.idGerencia, name: x.cGerencia, check: true }]);
+                });
+                this.idAreas = perfil.lstGerencias.lstGerencias.map((item: any) => item.idGerencia);
 
                 //this.form.controls.nTipoPadre.setValue(this.perfilData.nTipoPadre);
             });
@@ -166,25 +208,34 @@ export class AdmPerfilRegComponent {
     //#region Eventos
     onGuardarRegistro() {
         let _nombre = this.form.get('cNombre')?.value;
-        let _imprime = this.form.get('lImprime')?.value == true? 1 : 0;
-        let _descarga = this.form.get('lDescarga')?.value == true? 1 : 0;
-        let _tipoPerfil = this._const.TIPO_PERFIL;
+        let _imprime = this.form.get('lImprime')?.value == true ? 1 : 0;
+        let _descarga = this.form.get('lDescarga')?.value == true ? 1 : 0;
+        let _tipoPerfil = this.nTipo;
 
         let _perfil = {
             idPerfil: null,
             cNombre: _nombre,
             nTipo: _tipoPerfil,
             nImprime: _imprime,
-            nDescarga: _descarga
+            nDescarga: _descarga,
+            lstGerencia: this.idAreas
         };
 
-        console.log(_perfil)
-
+        //console.log(_perfil)
         if (this.accionForm == this._const.ACCION_FORM_NEW) {
             this.nuevoRegistro(_perfil);
         } else if (this.accionForm == this._const.ACCION_FORM_EDIT) {
             _perfil.idPerfil = this.perfilData.idPerfil;
             this.actualizarRegistro(_perfil);
+        }
+    }
+    onSelectedAreas($event: any) {
+        let _response = $event;
+
+        if (_response.status == Constante.STATUS_OK) {
+            this.listadoGer = _response.data;
+
+            this.idAreas = this.listadoGer.map((item: any) => item.id);
         }
     }
 

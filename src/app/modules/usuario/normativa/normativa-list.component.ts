@@ -291,7 +291,7 @@ export class NormativaListComponent {
     }
 
     onPaginatorEvent(event: any) {
-        console.log(event);
+        //console.log(event);
         this.pagination.pageSize = event.pageSize;
         this.pagination.pageIndex = event.pageIndex;
         this.listarRegistros();

@@ -69,7 +69,7 @@ export class SugerenciaDialogComponent {
         private toastr: ToastrService,
     ) {
         this.normativaData = data.normativa;
-        //console.log("data", data);
+        ////console.log("data", data);
     }
 
     //#region Methods
@@ -112,7 +112,7 @@ export class SugerenciaDialogComponent {
                     cCorreo: _correo,
                 };
 
-                console.log("_sugerencia", _sugerencia);
+                //console.log("_sugerencia", _sugerencia);
 
 
                 this.saveSugerencia(_sugerencia);

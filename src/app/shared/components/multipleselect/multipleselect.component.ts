@@ -51,8 +51,8 @@ export class MultipleselectComponent {
     }
 
     ngOnInit() {
-        //console.log('llego', this.lTodosSelect)
-        console.log('pintando')
+        ////console.log('llego', this.lTodosSelect)
+        //console.log('pintando')
 
         if (this.lTodosSelect) {
             this.onTodosSelected({ checked: true } as MatCheckboxChange)

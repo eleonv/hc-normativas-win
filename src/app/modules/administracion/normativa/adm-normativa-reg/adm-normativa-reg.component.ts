@@ -134,7 +134,7 @@ export class AdmNormativaRegComponent {
             .subscribe({
                 next: (response: any) => {
                     this.appService.disableLoading();
-                    //console.log("Response", response);
+                    ////console.log("Response", response);
 
                     if (response.success == Constante.STATUS_OK) {
                         let listado = response.data.lstTNormativas;
@@ -158,7 +158,7 @@ export class AdmNormativaRegComponent {
             .subscribe({
                 next: (response: any) => {
                     this.appService.disableLoading();
-                    console.log("Areas", response);
+                    //console.log("Areas", response);
 
                     if (response.success == Constante.STATUS_OK) {
                         let listado = response.data;
@@ -202,7 +202,7 @@ export class AdmNormativaRegComponent {
     }
 
     nuevoRegistro(normativa: any) {
-        //console.log("normativa: ", normativa);
+        ////console.log("normativa: ", normativa);
 
         this.appService.activateLoading();
         this.normativaService.saveNormativa(normativa)
@@ -230,7 +230,7 @@ export class AdmNormativaRegComponent {
     }
 
     actualizarRegistro(normativa: any) {
-        //console.log("normativa: ", normativa);
+        ////console.log("normativa: ", normativa);
 
         this.appService.activateLoading();
         this.normativaService.updateNormativa(normativa)
@@ -268,8 +268,8 @@ export class AdmNormativaRegComponent {
     }
 
     validarForm() {
-        //console.log("this.invalidForm", this.invalidForm);
-        console.log(this.idArchivo)
+        ////console.log("this.invalidForm", this.invalidForm);
+        //console.log(this.idArchivo)
 
         if (this.idTiposNormativa.length <= 0) { this.invalidForm = true; return; }
         //if(this.idPerfiles.length <= 0) { this.invalidForm = true;  return; }
@@ -278,21 +278,21 @@ export class AdmNormativaRegComponent {
         if (this.idArchivo == null) { this.invalidForm = true; return; }
 
         this.invalidForm = false;
-        //console.log("actualizad this.isValidForm", this.invalidForm);
+        ////console.log("actualizad this.isValidForm", this.invalidForm);
 
     }
     //#endregion
 
     //#region
     onSelectedTNormativa($event: any) {
-        //console.log("onSelectedTNormativa", $event);
+        ////console.log("onSelectedTNormativa", $event);
         let _response = $event;
 
         if (_response.status == Constante.STATUS_OK) {
             let _listado = _response.data;
 
             this.idTiposNormativa = _listado.map((item: any) => item.id);
-            //console.log("this.idTiposNormativa", this.idTiposNormativa);
+            ////console.log("this.idTiposNormativa", this.idTiposNormativa);
         }
 
         this.validarForm();
@@ -325,17 +325,17 @@ export class AdmNormativaRegComponent {
     onArchivoSubido($event: any) {
         if ($event.status == this._const.STATUS_OK) {
             this.archivo = $event.data
-            console.log("hay archivo")
-            console.log(this.archivo)
-            console.log($event.data)
-            console.log("----------------------------")
-            console.log($event.data.file)
+            //console.log("hay archivo")
+            //console.log(this.archivo)
+            //console.log($event.data)
+            //console.log("----------------------------")
+            //console.log($event.data.file)
             this.idArchivo = 0
         } else {
-            console.log("no  hay archivo")
+            //console.log("no  hay archivo")
             this.idArchivo = -1;
         }
-        console.log("no pasa a validar")
+        //console.log("no pasa a validar")
 
         this.validarForm();
         // if ($event.status == this._const.STATUS_OK) {
@@ -352,7 +352,7 @@ export class AdmNormativaRegComponent {
             .subscribe({
                 next: (response: ResponseServer<any>) => {
                     if (response.success == Constante.STATUS_OK) {
-                        console.log('se guardo pdf')
+                        //console.log('se guardo pdf')
                         this.idArchivo = response.data
                         this.onGuardarCitacion()
                     }
@@ -377,10 +377,10 @@ export class AdmNormativaRegComponent {
         let _email = this.form.get('cEmail')?.value;
         let _objetivo = this.form.get('cObjetivo')?.value;
 
-        console.log(typeof _fechaVigenciaCtr);
+        //console.log(typeof _fechaVigenciaCtr);
         let _fechaVigencia = DateUtility.dateToString(_fechaVigenciaCtr!, 'YYYY-MM-DD');
 
-        //console.log("_fechaVigencia", _fechaVigencia);
+        ////console.log("_fechaVigencia", _fechaVigencia);
 
         let _normativa = {
             idNormativa: this.normativaData.idNormativa,
@@ -417,7 +417,7 @@ export class AdmNormativaRegComponent {
                     return
                 }
 
-                //console.log("normativa edit", normativa);
+                ////console.log("normativa edit", normativa);
 
 
                 this.normativaService.getNormativa(normativa)
@@ -425,7 +425,7 @@ export class AdmNormativaRegComponent {
                     .subscribe({
                         next: (response: any) => {
                             this.appService.disableLoading();
-                            console.log("normativa rcovery", response);
+                            //console.log("normativa rcovery", response);
 
                             if (response.success == Constante.STATUS_OK) {
                                 this.normativaData = response.data;
@@ -462,14 +462,14 @@ export class AdmNormativaRegComponent {
                                 this.idAreas = this.normativaData.lstGerencias.map((item: any) => item.idGerencia);
                                 this.idPerfiles = this.normativaData.lstPerfiles.map((item: any) => item.idPerfil);
 
-                                //console.log("this.idTiposNormativa", this.idTiposNormativa);
-                                //console.log("this.idAreas", this.idAreas);
-                                //console.log("this.idPerfiles", this.idPerfiles);
-                                console.log("this.archivo", this.archivo);
+                                ////console.log("this.idTiposNormativa", this.idTiposNormativa);
+                                ////console.log("this.idAreas", this.idAreas);
+                                ////console.log("this.idPerfiles", this.idPerfiles);
+                                //console.log("this.archivo", this.archivo);
 
 
                                 this.idArchivo = this.normativaData.idArchivo;
-                                console.log('id Edit', this.idArchivo)
+                                //console.log('id Edit', this.idArchivo)
                                 this.invalidForm = false;
 
                             } else {

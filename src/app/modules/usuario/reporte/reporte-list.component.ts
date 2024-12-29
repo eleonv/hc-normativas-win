@@ -115,7 +115,7 @@ export class ReporteListComponent {
             .subscribe({
                 next: (response: any) => {
                     this.appService.disableLoading();
-                    console.log("response", response);
+                    //console.log("response", response);
 
                     if (response.success == Constante.STATUS_OK) {
                         if (Object.keys(response.data).length > 0) {
@@ -142,7 +142,7 @@ export class ReporteListComponent {
             .subscribe({
                 next: (response: any) => {
                     this.appService.disableLoading();
-                    console.log("reporte rcovery", response);
+                    //console.log("reporte rcovery", response);
 
                     if (response.success == Constante.STATUS_OK) {
                         this.lData = true
@@ -226,7 +226,7 @@ export class ReporteListComponent {
 
     //#region Event
     onPaginatorEvent(event: any) {
-        console.log(event);
+        //console.log(event);
         this.pagination.pageSize = event.pageSize;
         this.pagination.pageIndex = event.pageIndex;
         this.listarRegistros();
@@ -259,8 +259,8 @@ export class ReporteListComponent {
             cFechaInicio: _cFechaInicio,
             cFechaFin: _cFechaFin,
         };
-        console.log('reporte serar', this.reporteSelected)
-        console.log('reporte serar', this.filterSearch)
+        //console.log('reporte serar', this.reporteSelected)
+        //console.log('reporte serar', this.filterSearch)
 
         this.listarRegistros();
     }

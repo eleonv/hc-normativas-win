@@ -21,7 +21,8 @@
                                     <mat-form-field appearance="outline" class="form-full-width">
                                         <mat-label>Fecha inicio</mat-label>
                                         <input type="text" matInput maxlength="10" [matDatepicker]="pickerfi"
-                                            formControlName="cFechaInicio" readonly [max]="fechaHasta" (dateChange)="onChangeDesde()">
+                                            formControlName="cFechaInicio" readonly [max]="fechaHasta">
+                                            <!-- (dateChange)="onChangeDesde()" -->
                                         <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
                                         <mat-datepicker-toggle matIconSuffix [for]="pickerfi"></mat-datepicker-toggle>
                                         <mat-datepicker #pickerfi></mat-datepicker>
@@ -56,7 +57,7 @@
                 </mat-accordion>
             </form>
         </div>
-        <div class="table-body">
+        <div class="table-body table-responsive">
             <table mat-table [dataSource]="listData" class="table-full-width hc-table">
                 <ng-container matColumnDef="cDNI">
                     <th mat-header-cell *matHeaderCellDef style="width: 50px;" class="text-center"> DNI </th>

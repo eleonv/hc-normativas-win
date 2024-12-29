@@ -10,6 +10,8 @@ import { AppUtility } from '../../utility/app-utility';
 export class SecurityService {
 
     url: string = AppUtility.addTrailingSlash(environment.API_URL_IDENTITY);
+    url2: string = AppUtility.addTrailingSlash(environment.API_URL_BASE);
+
 
     constructor(private http: HttpClient) { }
 
@@ -26,6 +28,10 @@ export class SecurityService {
     }
 
     getInfoUser(): Observable<any> {
-        return this.http.get<any>(this.url + 'consultar-usuario');
+        return this.http.get<any>(this.url + 'consultar-usuario?idSistema=' + environment.ID_SISTEMA);
+    }
+
+    actualizarPerfil(): Observable<any> {
+        return this.http.post<any>(this.url2 + "actualizar-registrar-perfil", null);
     }
 }

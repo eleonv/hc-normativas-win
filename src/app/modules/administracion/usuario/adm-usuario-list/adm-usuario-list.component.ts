@@ -129,7 +129,7 @@ export class AdmUsuarioListComponent {
 
     //#region Event
     onPaginatorEvent(event: any) {
-        console.log(event);
+        //console.log(event);
         this.pagination.pageSize = event.pageSize;
         this.pagination.pageIndex = event.pageIndex;
         this.listarRegistros();
@@ -156,7 +156,7 @@ export class AdmUsuarioListComponent {
 
         const diferenciaDias = (new Date(fechaHasta!!).getTime() - new Date(fechaDesde!!).getTime()) / (1000 * 3600 * 24);
 
-        console.log(diferenciaDias)
+        //console.log(diferenciaDias)
         return diferenciaDias <= 366 ? true : false;
     }
     onChangeDesde() {
@@ -167,10 +167,10 @@ export class AdmUsuarioListComponent {
     onListarPorBusqueda() {
         const _dFechaInicio: any = this.form.get('cFechaInicio')?.value;
         const _dFechaFin: any = this.form.get('cFechaFin')?.value;
-        if (!this.validarDiferencia())
-            return
+        // if (!this.validarDiferencia())
+        //     return
 
-        console.log('paso validacion')
+        //console.log('paso validacion')
         const _cFechaInicio = DateUtility.dateToString(_dFechaInicio, 'YYYY-MM-DD');
         const _cFechaFin = DateUtility.dateToString(_dFechaFin, 'YYYY-MM-DD');
 

@@ -37,7 +37,7 @@ export class DashboardComponent {
         this.menu = AuthUtility.getMenu();
         this.nombrePerfil = this.perfil.cPefil;
 
-        //console.log("menu", this.menu);
+        ////console.log("menu", this.menu);
         //this.construirMenu();
         this.activarMenu(this.menu, null);
     }
@@ -183,7 +183,7 @@ export class DashboardComponent {
             _menuAdministration];
 
         this.menu = [_groupDashboard];
-        //console.log("menu", this.menu);
+        ////console.log("menu", this.menu);
 
         //this.activarOptionMenuCurrent();
     }

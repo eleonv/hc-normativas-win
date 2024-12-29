@@ -50,7 +50,7 @@ export class ArchivoComponent {
     ngAfterViewInit() {}
 
     validarPDF(_file: any) {
-        //console.log("validarPDF: ", _file);
+        ////console.log("validarPDF: ", _file);
         let fileName = _file.name;
         let size = _file.size;
 
@@ -105,7 +105,7 @@ export class ArchivoComponent {
         //     .subscribe({
         //         next: (response: ResponseServer<any>) => {
         //             this.progressBarFile = false;
-        //             //console.log("onUploadFile: ", response);
+        //             ////console.log("onUploadFile: ", response);
 
         //             if (response.success == Constante.STATUS_OK) {
 

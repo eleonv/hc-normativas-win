@@ -72,7 +72,7 @@ export class AdmPerfilListComponent {
             .subscribe({
                 next: (response: any) => {
                     this.appService.disableLoading();
-                    console.log("Response", response);
+                    //console.log("Response", response);
 
                     if (response.success == Constante.STATUS_OK) {
                         this.listData = response.data.lstPerfiles;
@@ -89,7 +89,7 @@ export class AdmPerfilListComponent {
     }
 
     filtrarbusqueda(event: KeyboardEvent) {
-        //console.log("citaciones: ", this.citacioneslist);
+        ////console.log("citaciones: ", this.citacioneslist);
     }
     //#endregion
 
@@ -110,7 +110,7 @@ export class AdmPerfilListComponent {
                         .subscribe({
                             next: (response: any) => {
                                 this.appService.disableLoading();
-                                console.log("Response", response);
+                                //console.log("Response", response);
 
                                 this.listarRegistros();
                             },
@@ -125,7 +125,7 @@ export class AdmPerfilListComponent {
     }
 
     onPaginatorEvent(event: any) {
-        console.log(event);
+        //console.log(event);
         this.pagination.pageSize = event.pageSize;
         this.pagination.pageIndex = event.pageIndex;
         this.listarRegistros();

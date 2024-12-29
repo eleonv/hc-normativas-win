@@ -80,8 +80,8 @@ export class ModalVistaPreviaReporteComponent {
 
     this.data = data.data;
 
-    console.log('this.puntoAgenda')
-    console.log(this.data)
+    //console.log('this.puntoAgenda')
+    //console.log(this.data)
     this.info = {
       cPerfil: this.data.cCargo,
       cAgencia: this.data.cOficina,
@@ -90,7 +90,7 @@ export class ModalVistaPreviaReporteComponent {
       cFechaFin: this.data.cFechaFin,
     };
 
-    console.log(this.info)
+    //console.log(this.info)
 
     this.listarRegistros(this.info);
     //this.obtenerDatosCompartido();
@@ -113,7 +113,7 @@ export class ModalVistaPreviaReporteComponent {
         this.idPunto = citacion.idPunto
         this.nombre = citacion.nombre
 
-        console.log(this.idCitacion + 'dsdfsdf' + this.idPunto)
+        //console.log(this.idCitacion + 'dsdfsdf' + this.idPunto)
         this.info = {
           idCitacion: this.idCitacion,
           idPunto: this.idPunto

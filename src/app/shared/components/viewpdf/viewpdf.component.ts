@@ -96,8 +96,8 @@ export class ViewpdfComponent {
                     const storedData = sessionStorage.getItem('dataWindow');
                     //this.lOpenWindow = true
                     if (storedData) {
-                        console.log('hay storage')
-                        console.log(storedData)
+                        //console.log('hay storage')
+                        //console.log(storedData)
                         this.lOpenWindow = true
                         const dataWindow = JSON.parse(sessionStorage.getItem('dataWindow')!!);
 
@@ -119,8 +119,8 @@ export class ViewpdfComponent {
                     }
 
                 } else {
-                    console.log('hay data')
-                    console.log(data)
+                    //console.log('hay data')
+                    //console.log(data)
                     this.infoPdf = {
                         idArchivo: data.normativa.idArchivo,
                         idNormativa: data.normativa.idNormativa
@@ -164,7 +164,7 @@ export class ViewpdfComponent {
             .subscribe({
                 next: (response: any) => {
                     this.appService.disableLoading();
-                    console.log("Meta data file", response);
+                    //console.log("Meta data file", response);
 
                     if (response.success == Constante.STATUS_OK) {
 
@@ -206,7 +206,7 @@ export class ViewpdfComponent {
     }
 
     openWindow() {
-        console.log(this.dataWindow)
+        //console.log(this.dataWindow)
         if (this.dataWindow) {
             sessionStorage.setItem('dataWindow', JSON.stringify(this.dataWindow));
             window.open('/normativas/verPdf/ver', '_blank', 'width=800,height=640');
@@ -261,7 +261,7 @@ export class ViewpdfComponent {
     }
 
     onRegresar() {
-        //console.log("Ruta Origen", this.rutaOrigen);
+        ////console.log("Ruta Origen", this.rutaOrigen);
         this.router.navigate([this.rutaOrigen]);
     }
     //#endregion

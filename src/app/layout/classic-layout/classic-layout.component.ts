@@ -66,12 +66,12 @@ export class ClassicLayoutComponent {
         this.desactiveAllMenu(this.menu);
 
         item.active = item.active ? false : true;
-        //console.log('active menu', item.name);
+        ////console.log('active menu', item.name);
     }
 
     onExpandedMenu(item: Menu) {
         item.expanded = item.expanded ? false : true;
-        //console.log('expanded menu', item.name);
+        ////console.log('expanded menu', item.name);
     }
 
     onBusquedaAvanzada() {

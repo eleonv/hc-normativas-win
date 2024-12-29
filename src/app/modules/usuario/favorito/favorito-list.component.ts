@@ -144,7 +144,7 @@ export class FavoritoListComponent {
 
     //#region Event
     onFavorito(normativa: any) {
-        console.log("item favorito", normativa);
+        //console.log("item favorito", normativa);
 
         if (!normativa.lFavorito) {
             this.saveFavorito(normativa);
@@ -176,7 +176,7 @@ export class FavoritoListComponent {
     }
 
     onPaginatorEvent(event: any) {
-        console.log(event);
+        //console.log(event);
         this.pagination.pageSize = event.pageSize;
         this.pagination.pageIndex = event.pageIndex;
         this.listarRegistros();

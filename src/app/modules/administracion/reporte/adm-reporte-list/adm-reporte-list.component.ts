@@ -100,7 +100,7 @@ export class AdmReporteListComponent {
             .subscribe({
                 next: (response: any) => {
                     this.appService.disableLoading();
-                    //console.log("response", response);
+                    ////console.log("response", response);
 
                     if (response.success == Constante.STATUS_OK) {
                         if (Object.keys(response.data).length > 0) {
@@ -126,7 +126,7 @@ export class AdmReporteListComponent {
 
     //#region Event
     onPaginatorEvent(event: any) {
-        console.log(event);
+        //console.log(event);
         this.pagination.pageSize = event.pageSize;
         this.pagination.pageIndex = event.pageIndex;
         this.listarRegistros();
@@ -152,7 +152,7 @@ export class AdmReporteListComponent {
                         .subscribe({
                             next: (response: any) => {
                                 this.appService.disableLoading();
-                                //console.log("Response", response);
+                                ////console.log("Response", response);
 
                                 this.listarRegistros();
                             },

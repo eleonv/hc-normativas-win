@@ -135,6 +135,7 @@ export class AdmReporteRegComponent {
     this.listarCategorias();
     this.listarAreas();
     this.listarOficinas();
+    this.listarCargosNormativas(0)
     this.listarPerfilesNormativas();
 
     if (this.accionForm == this._const.ACCION_FORM_EDIT) {
@@ -151,13 +152,13 @@ export class AdmReporteRegComponent {
   listarCargosNormativas(idArea: number) {
 
     this.appService.activateLoading();
-    this.prerfilService.listCargos(idArea)
+    this.prerfilService.listCargos(0)
       .pipe(take(1), takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (response: any) => {
           this.appService.disableLoading();
           this.appService.disableLoading();
-          //console.log("Cargos", response);
+          ////console.log("Cargos", response);
 
           if (response.success == Constante.STATUS_OK) {
             let listado = response.data;
@@ -186,7 +187,7 @@ export class AdmReporteRegComponent {
       .subscribe({
         next: (response: any) => {
           this.appService.disableLoading();
-          //console.log("tipos", response);
+          ////console.log("tipos", response);
 
           if (response.success == Constante.STATUS_OK) {
             let listado = response.data.lstTNormativas;
@@ -209,7 +210,7 @@ export class AdmReporteRegComponent {
       .subscribe({
         next: (response: any) => {
           this.appService.disableLoading();
-          //console.log("Areas", response);
+          ////console.log("Areas", response);
 
           if (response.success == Constante.STATUS_OK) {
             let listado = response.data;
@@ -232,7 +233,7 @@ export class AdmReporteRegComponent {
       .subscribe({
         next: (response: any) => {
           this.appService.disableLoading();
-          //console.log("Oficinas", response);
+          ////console.log("Oficinas", response);
 
           if (response.success == Constante.STATUS_OK) {
             let listado = response.data;
@@ -277,7 +278,7 @@ export class AdmReporteRegComponent {
   }
 
   nuevoRegistro(reporte: any) {
-    //console.log("normativa: ", normativa);
+    ////console.log("normativa: ", normativa);
 
     this.appService.activateLoading();
     this.reportService.saveReporte(reporte)
@@ -305,7 +306,7 @@ export class AdmReporteRegComponent {
   }
 
   actualizarRegistro(reporte: any) {
-    //console.log("normativa: ", normativa);
+    ////console.log("normativa: ", normativa);
 
     this.appService.activateLoading();
     this.reportService.updateReporte(reporte)
@@ -341,42 +342,42 @@ export class AdmReporteRegComponent {
   }
 
   validarForm() {
-    //console.log("this.invalidForm", this.invalidForm);
-    //console.log(this.idArchivo)
+    ////console.log("this.invalidForm", this.invalidForm);
+    ////console.log(this.idArchivo)
 
     if (this.idTiposNormativa.length <= 0) { this.invalidForm = true; return; }
     if (this.idOficinas.length <= 0) { this.invalidForm = true; return; }
     if (this.idAreas.length <= 0) { this.invalidForm = true; return; }
 
     this.invalidForm = false;
-    //console.log("actualizad this.isValidForm", this.invalidForm);
+    ////console.log("actualizad this.isValidForm", this.invalidForm);
 
   }
   //#endregion
 
   //#region
   onSelectedTNormativa($event: any) {
-    //console.log("onSelectedTNormativa", $event);
+    ////console.log("onSelectedTNormativa", $event);
     let _response = $event;
 
     if (_response.status == Constante.STATUS_OK) {
       let _listado = _response.data;
 
       this.idTiposNormativa = _listado.map((item: any) => item.id);
-      //console.log("this.idTiposNormativa", this.idTiposNormativa);
+      ////console.log("this.idTiposNormativa", this.idTiposNormativa);
     }
 
     this.validarForm();
   }
   onSelectedOficinas($event: any) {
-    //console.log("onSelectedTNormativa", $event);
+    ////console.log("onSelectedTNormativa", $event);
     let _response = $event;
 
     if (_response.status == Constante.STATUS_OK) {
       let _listado = _response.data;
 
       this.idOficinas = _listado.map((item: any) => item.id);
-      //console.log("this.idTiposNormativa", this.idTiposNormativa);
+      ////console.log("this.idTiposNormativa", this.idTiposNormativa);
     }
 
     this.validarForm();
@@ -384,42 +385,42 @@ export class AdmReporteRegComponent {
 
   onSelectedAreas($event: any) {
     let _response = $event;
-    this.cargosRaw = []
-    this.cargosSeledted.set([])
+    // this.cargosRaw = []
+    // this.cargosSeledted.set([])
 
     if (_response.status == Constante.STATUS_OK) {
       let _listado = _response.data;
 
       this.idAreas = _listado.map((item: any) => item.id);
-      //console.log('geren', _listado)
+      ////console.log('geren', _listado)
     }
-    this.lSelectCargo = this.idAreas.length == 1 && this.idAreas[0] != -1 ? true : false;
-    if (this.lSelectCargo)
-      this.listarCargosNormativas(this.idAreas[0])
+    // this.lSelectCargo = this.idAreas.length == 1 && this.idAreas[0] != -1 ? true : false;
+    // if (this.lSelectCargo)
+    //   this.listarCargosNormativas(this.idAreas[0])
 
-    if (this.idAreas[0] == -1 && this.idAreas.length == 1) {
-      this.lTodoCargo = true
-      this.cargosSeledted.update(item => [...item, { id: -1, name: 'TODO', check: true }]);
-      //this.cargosSeledted.update(item => [...item, { id: -1, name: 'TODO', check: true }]);
-    } else if (this.idAreas.length >= 1) {
-      this.lTodoCargo = true
-      this.cargosSeledted.update(item => [...item, { id: -1, name: 'TODO', check: true }]);
-    }
-    else {
-      this.lTodoCargo = false
-    }
+    // if (this.idAreas[0] == -1 && this.idAreas.length == 1) {
+    //   this.lTodoCargo = true
+    //   this.cargosSeledted.update(item => [...item, { id: -1, name: 'TODO', check: true }]);
+    //   //this.cargosSeledted.update(item => [...item, { id: -1, name: 'TODO', check: true }]);
+    // } else if (this.idAreas.length >= 1) {
+    //   this.lTodoCargo = true
+    //   this.cargosSeledted.update(item => [...item, { id: -1, name: 'TODO', check: true }]);
+    // }
+    // else {
+    //   this.lTodoCargo = false
+    // }
     this.validarForm();
   }
 
   onSelectedCargos($event: any) {
-    //console.log("onSelectedCargos", $event);
+    ////console.log("onSelectedCargos", $event);
     let _response = $event;
 
     if (_response.status == Constante.STATUS_OK) {
       let _listado = _response.data;
 
       this.idCargos = _listado.map((item: any) => item.id);
-      //console.log("this.idCargos", this.idCargos);
+      ////console.log("this.idCargos", this.idCargos);
     }
 
     this.validarForm();
@@ -458,7 +459,7 @@ export class AdmReporteRegComponent {
       cFechaFin: _fechaFin
     };
 
-    console.log('reporteSend', _reporte)
+    //console.log('reporteSend', _reporte)
     if (this.accionForm == this._const.ACCION_FORM_NEW) {
       this.nuevoRegistro(_reporte);
     } else if (this.accionForm == this._const.ACCION_FORM_EDIT) {
@@ -487,7 +488,7 @@ export class AdmReporteRegComponent {
       cFechaFin: _fechaFin
     };
 
-    console.log('reporteSend', _reporte)
+    //console.log('reporteSend', _reporte)
     this.dialog.open(ModalVistaPreviaReporteComponent, {
       maxWidth: '2000px',
       width: '1400px',
@@ -508,7 +509,7 @@ export class AdmReporteRegComponent {
           return
         }
 
-        //console.log("normativa edit", normativa);
+        ////console.log("normativa edit", normativa);
 
 
         this.reportService.getReporte(reporte)
@@ -516,7 +517,7 @@ export class AdmReporteRegComponent {
           .subscribe({
             next: (response: any) => {
               this.appService.disableLoading();
-              console.log("reporte rcovery", response);
+              //console.log("reporte rcovery", response);
 
               if (response.success == Constante.STATUS_OK) {
                 this.reporteData = response.data;

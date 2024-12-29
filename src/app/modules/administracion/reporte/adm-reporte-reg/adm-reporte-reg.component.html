@@ -63,7 +63,7 @@
 
         <div class="col-md-12">
             <app-multipleselect [selectedItems]="cargosSeledted" [datasource]="cargosRaw" [config]="configCargosSelect"
-                (result)="onSelectedCargos($event)" [disabled]="disabledForm || !lSelectCargo" [lTodosButton]="true"
+                (result)="onSelectedCargos($event)" [disabled]="disabledForm" [lTodosButton]="true"
                 [lTodosSelect]="lTodoCargo"></app-multipleselect>
         </div>
 

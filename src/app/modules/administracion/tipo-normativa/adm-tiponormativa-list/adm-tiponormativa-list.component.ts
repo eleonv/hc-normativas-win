@@ -70,7 +70,7 @@ export class AdmTiponormativaListComponent {
             .subscribe({
                 next: (response: any) => {
                     this.appService.disableLoading();
-                    console.log("Response", response);
+                    //console.log("Response", response);
 
                     if (response.success == Constante.STATUS_OK) {
                         this.listData = response.data.lstTNormativas;
@@ -104,7 +104,7 @@ export class AdmTiponormativaListComponent {
                         .subscribe({
                             next: (response: any) => {
                                 this.appService.disableLoading();
-                                console.log("Response", response);
+                                //console.log("Response", response);
 
                                 this.listarRegistros();
                             },
@@ -119,11 +119,11 @@ export class AdmTiponormativaListComponent {
     }
 
     filtrarbusqueda(event: KeyboardEvent) {
-        //console.log("citaciones: ", this.citacioneslist);
+        ////console.log("citaciones: ", this.citacioneslist);
     }
 
     onPaginatorEvent(event: any) {
-        console.log(event);
+        //console.log(event);
         this.pagination.pageSize = event.pageSize;
         this.pagination.pageIndex = event.pageIndex;
         this.listarRegistros();

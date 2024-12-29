@@ -42,7 +42,7 @@ export class AppUtility {
             _groupDashboard.submenu.push(_menuHome);
         }
 
-        console.log("groupDashboard", _groupDashboard);
+        //console.log("groupDashboard", _groupDashboard);
         return [_groupDashboard];
     }
 

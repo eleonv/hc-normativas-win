@@ -196,8 +196,8 @@ export class BusquedaComponent {
                             this.pagination.pageIndex = 0;
                             this.totalResultados = 0;
 
-                            console.log("totalResultados", this.totalResultados);
-                            //console.log("totalResultados", totalResultados);
+                            //console.log("totalResultados", this.totalResultados);
+                            ////console.log("totalResultados", totalResultados);
 
                         }
 
@@ -243,7 +243,7 @@ export class BusquedaComponent {
     }
 
     onPaginatorEvent(event: any) {
-        console.log(event);
+        //console.log(event);
         this.pagination.pageSize = event.pageSize;
         this.pagination.pageIndex = event.pageIndex;
         this.listarRegistros();
@@ -282,10 +282,10 @@ export class BusquedaComponent {
         _cClave = _cClave.trim();
         _cNombre = _cNombre.trim();
 
-        /*console.log("_idGerencia", _idGerencia != 0);
-        console.log("_nUltimoFecha", _nUltimoFecha != 0);
-        console.log("_cClave", _cClave.length > 0);
-        console.log("_cNormativa", _cNormativa.length > 0);*/
+        /*//console.log("_idGerencia", _idGerencia != 0);
+        //console.log("_nUltimoFecha", _nUltimoFecha != 0);
+        //console.log("_cClave", _cClave.length > 0);
+        //console.log("_cNormativa", _cNormativa.length > 0);*/
 
         if (_idGerencia == 0 && _nUltimoFecha == 0 && _cClave.length == 0 && _cNombre.length == 0) {
             this.toastr.warning("Por favor, ingresa al menos un criterio para realizar la búsqueda", this._const.MESSAGE_TITLE_WARNING);

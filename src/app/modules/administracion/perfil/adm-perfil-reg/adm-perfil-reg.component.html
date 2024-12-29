@@ -12,24 +12,14 @@
                 <input type="text" matInput maxlength="800" formControlName="cNombre" name="cNombre">
             </mat-form-field>
         </div>
-
         <div class="col-md-12">
-            <mat-form-field appearance="outline" class="form-full-width">
-                <mat-label>Gerencia</mat-label>
-                <!-- <mat-select formControlName="nTipoPadre" name="nTipoPadre"></mat-select> -->
-                <mat-select>
-                    <mat-option value="1">OFICILIA DE NORMATI..</mat-option>
-                    <mat-option value="2">GERENCIA DE ALD.</mat-option>
-                    <mat-option value="3">GERENCIA GENERAL</mat-option>
-                </mat-select>
-            </mat-form-field>
+            <app-multipleselect [selectedItems]="areasSeledted" [datasource]="areasRaw" [config]="configAreasMSelect"
+                (result)="onSelectedAreas($event)" [disabled]="disabledForm"></app-multipleselect>
         </div>
         <section class=" mb-3">
             <p>Opciones:</p>
-            <mat-checkbox formControlName="lImprime" class="mx-3"
-                [(ngModel)]="lImprime">Imprime</mat-checkbox>
-            <mat-checkbox formControlName="lDescarga" class="mx-3"
-                [(ngModel)]="lDescarga">Descarga</mat-checkbox>
+            <mat-checkbox formControlName="lImprime" class="mx-3" [(ngModel)]="lImprime">Imprime</mat-checkbox>
+            <mat-checkbox formControlName="lDescarga" class="mx-3" [(ngModel)]="lDescarga">Descarga</mat-checkbox>
         </section>
         <div class="col-12 mb-3">
             <mat-divider></mat-divider>

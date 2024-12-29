@@ -23,6 +23,7 @@ import { Constante } from '../../../utility/constante';
 import { AppUtility } from '../../../utility/app-utility';
 import { NormativaService } from '../../../services/normativa.service';
 import { FooterComponent } from '../../../shared/components/footer/footer.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-auth-perfil',
@@ -37,7 +38,8 @@ import { FooterComponent } from '../../../shared/components/footer/footer.compon
         MatSidenavModule,
         MatToolbarModule,
         MatTooltipModule,
-        FooterComponent
+        FooterComponent,
+        CommonModule
     ],
     templateUrl: './auth-perfil.component.html',
     styleUrl: './auth-perfil.component.scss'
@@ -55,6 +57,8 @@ export class AuthPerfilComponent {
     perfil: any = {};
     nombrePerfil: string | null = null;
 
+    lAcceso: boolean = false
+
     public constructor(
         private appService: AppService,
         private securityService: SecurityService,
@@ -66,7 +70,7 @@ export class AuthPerfilComponent {
     ) {
         let _isChangePerfil = this.activatedRoute.snapshot.data['isChangePerfil'];
 
-        //console.log("isChangePerfil", _isChangePerfil);
+        ////console.log("isChangePerfil", _isChangePerfil);
 
         if (_isChangePerfil) {
             this.user = AuthUtility.getValueUserAS();
@@ -76,6 +80,7 @@ export class AuthPerfilComponent {
             let _tokenabc: any = AuthUtility.getTokenIdentity();
             AuthUtility.initSessionData(_tokenabc);
 
+            this.lAcceso  = true;
             this.getPerfiles();
         } else {
             this.nombrePerfil = null;
@@ -107,10 +112,11 @@ export class AuthPerfilComponent {
             .pipe(take(1), takeUntilDestroyed(this.destroyRef))
             .subscribe({
                 next: (response: any) => {
-                    //console.log("response user", response);
+                    ////console.log("response user", response);
 
                     this.appService.disableLoading();
                     if (response.success == Constante.STATUS_OK) {
+                        this.lAcceso = true
                         let _user = new UsuarioAS();
                         _user.idUsuario = response.data.idUsuario;
                         _user.cNombreUsuario = response.data.cNombreUsuario;
@@ -119,13 +125,19 @@ export class AuthPerfilComponent {
 
                         AuthUtility.setValueUserAS(_user);
                         this.user = AuthUtility.getValueUserAS();
+                        
+                    }
+                    else {
+                        this.lAcceso = false
+                        this.toastr.warning(response.errors[0].message, this._const.MESSAGE_TITLE_WARNING);
+                        setTimeout(() => { this.appService.goAndesSuite(); }, 20000)
                     }
                 }
             });
     }
 
     getPerfiles() {
-        //console.log("Perfiles AuthUtility.getToken()", AuthUtility.getToken());
+        ////console.log("Perfiles AuthUtility.getToken()", AuthUtility.getToken());
         this.appService.activateLoading();
         this.securityService.getPerfiles()
             .pipe(take(1), takeUntilDestroyed(this.destroyRef))
@@ -167,11 +179,10 @@ export class AuthPerfilComponent {
 
     //#region Eventos
     onIngresarApp() {
-        //
-        AuthUtility.setPerfil(this.perfil);
-        this.router.navigate([Constante.URL_DASHBOARD]);
+        /*this.router.navigate([Constante.URL_DASHBOARD]);
+        AuthUtility.setPerfil(this.perfil);*/
 
-        /*this.appService.activateLoading();
+        this.appService.activateLoading();
         this.normativaService.logIngresoApp()
             .pipe(take(1), takeUntilDestroyed(this.destroyRef))
             .subscribe({
@@ -181,7 +192,7 @@ export class AuthPerfilComponent {
                     AuthUtility.setPerfil(this.perfil);
                     this.router.navigate([Constante.URL_DASHBOARD]);
                 }
-            });*/
+            });
     }
 
     onPerfilSeleccionado($event: any) {
@@ -209,7 +220,7 @@ export class AuthPerfilComponent {
             .subscribe({
                 next: (response: any) => {
 
-                    //console.log("response perfil", response);
+                    ////console.log("response perfil", response);
                     if (response.success == Constante.STATUS_OK) {
 
                         // se inicia sesion con este nuevo token
