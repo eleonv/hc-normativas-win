@@ -27,12 +27,27 @@ export class AuthenticationComponent {
         this.activeRoute.params
             .pipe(take(1))
             .subscribe((routeParams: any) => {
-                ////console.log("routeParams", routeParams);
+                console.log("routeParams abc", routeParams);
 
-                AuthUtility.setTokenIdentity(routeParams.token);
+                if (routeParams.token && routeParams.token !== undefined) {
+                    AuthUtility.setTokenIdentity(routeParams.token);
+                    AuthUtility.initSessionData(routeParams.token);
+                    this.registrarPerfil(routeParams.token);
+                }
+                else if (routeParams.idNormativa && routeParams.idNormativa !== undefined) {
+                    let normativa = {
+                        idNormativa: routeParams.idNormativa
+                    };
+
+                    AuthUtility.setDataNormativa(normativa);
+                    console.log("si ha iniciado sesion enviarle para ver la normativa, caso contrario, enviarle a login");
+
+                    //router.navigate(['/login']);
+                }
+                /*AuthUtility.setTokenIdentity(routeParams.token);
                 AuthUtility.initSessionData(routeParams.token);
-                this.registrarPerfil(routeParams.token)
-                // 
+                this.registrarPerfil(routeParams.token)*/
+                //
             });
     }
 

@@ -44,7 +44,7 @@ export class LoginComponent {
     loginForm: FormGroup;
     hide = true;
     srcCaptcha = '';
-    btnDisabled: Boolean = true;
+    btnDisabled: Boolean = false;
     shift: number = 3;
     captchaCode: string = '';
     error: boolean = false;
@@ -68,11 +68,11 @@ export class LoginComponent {
         });
     }
 
-    login() {
+    /*login() {
         let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZFVzdWFyaW8iOiIxMjIiLCJOb21icmUiOiJBTUJJQ0hPIEhVQU1BTiBDQVJIVUFZQSBZRVNTSUNBIFRBTklBIiwiRm90byI6IiIsImV4cCI6MTczNTQ2NDI3NX0.3jW540AUzY2VwPKY11cpARueu5_ttQFZvLJ9u5ECRYg';
 
         this.router.navigate(['/auth-identity', token]);
-    }
+    }*/
 
     changeStyle() {
         if (window.innerWidth > 768) {
@@ -140,29 +140,44 @@ export class LoginComponent {
             cUserName: cUserName,
             cPassword: cPassword
         }
+
+        this.postLogin(user);
+
         //this.router.navigate(['/']);
-        if (this.lCaptcha)
+        /*if (this.lCaptcha)
             this.postLogin(user)
         else {
             this.error = true
             this.errorTexto = "Recuerde resolver el captcha"
-        }
+        }*/
     }
 
 
     //postLogin(user: User) {
     postLogin(user: any) {
-        /*this.btnDisabled = true
+        this.btnDisabled = true
         this.auth.login(user)
             .pipe(take(1), takeUntilDestroyed(this.destroyRef))
             .subscribe({
                 next: (response: any) => {
-                    if (response.success == Constante.SUCCESS_OK) {
+                    if (response.success == Constante.STATUS_OK) {
                         if (Object.keys(response.data).length != 0) {
-                            AuthUtility.logSessionData(response.data.cToken);
-                            AuthUtility.logUserName(response.data.objUsuario.cNombreCompleto);
-                            AuthUtility.logUserId(response.data.objUsuario.idUsuario)
-                            this.router.navigate([Constante.URL_DASHBOARD]);
+
+                            let tokenIdentity = response.data.cToken;
+                            AuthUtility.setTokenIdentity(tokenIdentity);
+                            AuthUtility.initSessionData(tokenIdentity);
+
+                            //setear token
+
+                            //AuthUtility.logSessionData(response.data.cToken);
+                            //AuthUtility.logUserName(response.data.objUsuario.cNombreCompleto);
+                            //AuthUtility.logUserId(response.data.objUsuario.idUsuario)
+                            //this.router.navigate([Constante.URL_DASHBOARD]);
+
+                            let token = AuthUtility.getToken();
+                            this.router.navigate(['/auth-identity', token]);
+
+                            //this.getModulos();
                         } else {
                             this.btnDisabled = false
                             this.error = true
@@ -182,7 +197,7 @@ export class LoginComponent {
                     this.error = true
                     this.errorTexto = "Algo salio mal, vuelva a intentarlo"
                 }
-            });*/
+            });
     }
 
     convertToUpperCase(event: any) {
@@ -207,5 +222,30 @@ export class LoginComponent {
             this.errorTexto = "Es necesario que se llenen todos los campos del formulario."
         }
     }
+
+    /*getModulos() {
+        this.auth.getModulos()
+            .pipe(take(1), takeUntilDestroyed(this.destroyRef))
+            .subscribe({
+                next: (response: any) => {
+                    if (response.success == Constante.STATUS_OK) {
+                        console.log('Modulos:', response.data);
+                        //this.listaModulos = response.data
+                        //this.modulosFiltrados = [...this.listaModulos!!]
+
+                        let token = AuthUtility.getToken();
+                        this.router.navigate(['/auth-identity', token]);
+
+                        //this.router.navigate([Constante.URL_DASHBOARD]);
+
+                    } else {
+                        console.error('Error de inicio de sesión:', response);
+                    }
+                },
+                error: (err: any) => {
+                    console.error('Error de inicio de sesión:', err);
+                }
+            });
+    }*/
 
 }

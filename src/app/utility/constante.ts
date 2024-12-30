@@ -89,5 +89,7 @@ export class Constante {
 
   static TOTAL_REGISTROS = 50;
   static COD_PERFIL_ADMINISTRADOR = 10;
+
+  static DATA_VIEW_NORMATIVA = "data-view";
   //#endregion
 }

@@ -91,4 +91,19 @@ export class AuthUtility {
     }
     //#endregion
 
+    //#region ver normativa
+    static setDataNormativa(normativa: any) {
+        sessionStorage.setItem(Constante.DATA_VIEW_NORMATIVA, JSON.stringify(normativa));
+    }
+
+    static getDataNormativa() : any | null {
+        let normativa = sessionStorage.getItem(Constante.DATA_VIEW_NORMATIVA);
+        if (normativa && normativa.length > 0) {
+            return JSON.parse(normativa);
+        } else {
+            return null;
+        }
+    }
+    //#endregion
+
 }

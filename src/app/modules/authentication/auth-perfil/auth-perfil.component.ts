@@ -28,7 +28,7 @@ import { CommonModule } from '@angular/common';
 @Component({
     selector: 'app-auth-perfil',
     standalone: true,
-    imports: [RouterOutlet, RouterLink, MatButtonModule, MatIconModule, HttpClientModule,
+    imports: [MatButtonModule, MatIconModule,
         //user
         MatMenuModule, MatDividerModule,
         MatCardModule, MatFormFieldModule,
@@ -80,7 +80,7 @@ export class AuthPerfilComponent {
             let _tokenabc: any = AuthUtility.getTokenIdentity();
             AuthUtility.initSessionData(_tokenabc);
 
-            this.lAcceso  = true;
+            this.lAcceso = true;
             this.getPerfiles();
         } else {
             this.nombrePerfil = null;
@@ -175,12 +175,40 @@ export class AuthPerfilComponent {
             return str;
         }
     }
+
+    onVerDocumento(normativa: any) {
+
+        let _rutaOrigen = Constante.URL_USER_NORMATIVAS;
+        /*switch (this.tipoNormativa) {
+            case this._const.TIPO_NOR_NORMATIVA: _rutaOrigen = Constante.URL_USER_NORMATIVAS; break;
+            case this._const.TIPO_NOR_GUIA: _rutaOrigen = Constante.URL_USER_GUIAS; break;
+            case this._const.TIPO_NOR_PROYECTO: _rutaOrigen = Constante.URL_USER_PROYECTOS; break;
+            default: _rutaOrigen = Constante.URL_USER_NORMATIVAS; break;
+        }*/
+
+        let _data = {
+            rutaOrigen: _rutaOrigen,
+            normativa: normativa
+        }
+
+        this.appService.setValueSharedData(_data);
+        this.router.navigate([this._const.URL_PDF_VIEW]);
+    }
     //#endregion
 
     //#region Eventos
     onIngresarApp() {
         AuthUtility.setPerfil(this.perfil);
-        this.router.navigate([Constante.URL_DASHBOARD]);
+
+        let dataNormativa = AuthUtility.getDataNormativa();
+        if (dataNormativa && dataNormativa != null) {
+            console.log('dataNormativa:', dataNormativa);
+            console.log('link para ever la normativa');
+
+            //this.router.navigate(['/ver-normativa', dataNormativa.id]);
+        } else {
+            this.router.navigate([Constante.URL_DASHBOARD]);
+        }
 
         /*this.appService.activateLoading();
         this.normativaService.logIngresoApp()

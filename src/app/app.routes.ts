@@ -8,6 +8,7 @@ import { LoginComponent } from './modules/login/login.component';
 export const routes: Routes = [
     //{ path: 'login', loadComponent: () => import('../app/modules/login/login.component').then(m => m.LoginComponent) },
     { path: 'login', component: LoginComponent},
+    { path: 'ver-normativa/:idNormativa', component: AuthenticationComponent},
     { path: 'auth-identity/:token', component: AuthenticationComponent},
     { path: 'perfil/seleccionar-perfil', component: AuthPerfilComponent, data: { isChangePerfil: false }},
     { path: 'perfil/cambiar-perfil', component: AuthPerfilComponent, data: { isChangePerfil: true }, canActivate: [authGuard]},
