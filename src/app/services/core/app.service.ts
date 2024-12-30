@@ -49,13 +49,15 @@ export class AppService {
 
     goAndesSuite() {
         AuthUtility.clearPerfil();
-        let urlIdentity = environment.URL_IDENTITY;
-        window.open(urlIdentity + Constante.URL_IDENTITY_DASHBOARD_HOME, '_self');
+        //let urlIdentity = environment.URL_IDENTITY;
+        //window.open(urlIdentity + Constante.URL_IDENTITY_DASHBOARD_HOME, '_self');
+        this.goSignOut();
     }
 
     goAndesSuiteLogin() {
-        let urlIdentity = environment.URL_IDENTITY;
-        window.open(urlIdentity + Constante.URL_IDENTITY_LOGIN, '_self');
+        //let urlIdentity = environment.URL_IDENTITY;
+        //window.open(urlIdentity + Constante.URL_IDENTITY_LOGIN, '_self');
+        this.goSignOut();
     }
 
     getVersion() {

@@ -176,7 +176,7 @@ export class AuthPerfilComponent {
         }
     }
 
-    onVerDocumento(normativa: any) {
+    verDocumento(normativa: any) {
 
         let _rutaOrigen = Constante.URL_USER_NORMATIVAS;
         /*switch (this.tipoNormativa) {
@@ -199,13 +199,15 @@ export class AuthPerfilComponent {
     //#region Eventos
     onIngresarApp() {
         AuthUtility.setPerfil(this.perfil);
+        //this.router.navigate([Constante.URL_DASHBOARD]);
 
         let dataNormativa = AuthUtility.getDataNormativa();
         if (dataNormativa && dataNormativa != null) {
             console.log('dataNormativa:', dataNormativa);
-            console.log('link para ever la normativa');
+            //console.log('link para ever la normativa');
 
             //this.router.navigate(['/ver-normativa', dataNormativa.id]);
+            this.verDocumento(dataNormativa);
         } else {
             this.router.navigate([Constante.URL_DASHBOARD]);
         }
