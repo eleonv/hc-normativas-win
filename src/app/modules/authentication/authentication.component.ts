@@ -15,7 +15,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     styleUrl: './authentication.component.scss'
 })
 export class AuthenticationComponent {
-    _const = Constante;
 
     mensajeApp: string = '...Cargando la aplicación'
     constructor(
@@ -28,27 +27,12 @@ export class AuthenticationComponent {
         this.activeRoute.params
             .pipe(take(1))
             .subscribe((routeParams: any) => {
-                console.log("routeParams abc", routeParams);
+                ////console.log("routeParams", routeParams);
 
-                if (routeParams.token && routeParams.token !== undefined) {
-                    AuthUtility.setTokenIdentity(routeParams.token);
-                    AuthUtility.initSessionData(routeParams.token);
-                    this.registrarPerfil(routeParams.token);
-                }
-                else if (routeParams.idNormativa && routeParams.idNormativa !== undefined) {
-                    let normativa = {
-                        idNormativa: routeParams.idNormativa
-                    };
-
-                    console.log("si ha iniciado sesion enviarle para ver la normativa, caso contrario, enviarle a login");
-                    AuthUtility.setDataNormativa(normativa);
-                    this.verDocumento(normativa);
-                    //router.navigate(['/login']);
-                }
-                /*AuthUtility.setTokenIdentity(routeParams.token);
+                AuthUtility.setTokenIdentity(routeParams.token);
                 AuthUtility.initSessionData(routeParams.token);
-                this.registrarPerfil(routeParams.token)*/
-                //
+                this.registrarPerfil(routeParams.token);
+
             });
     }
 
@@ -74,24 +58,5 @@ export class AuthenticationComponent {
                     setTimeout(() => { this.appService.goAndesSuite(); }, 5000)
                 }
             });
-    }
-
-    verDocumento(normativa: any) {
-
-        let _rutaOrigen = Constante.URL_USER_NORMATIVAS;
-        /*switch (this.tipoNormativa) {
-            case this._const.TIPO_NOR_NORMATIVA: _rutaOrigen = Constante.URL_USER_NORMATIVAS; break;
-            case this._const.TIPO_NOR_GUIA: _rutaOrigen = Constante.URL_USER_GUIAS; break;
-            case this._const.TIPO_NOR_PROYECTO: _rutaOrigen = Constante.URL_USER_PROYECTOS; break;
-            default: _rutaOrigen = Constante.URL_USER_NORMATIVAS; break;
-        }*/
-
-        let _data = {
-            rutaOrigen: _rutaOrigen,
-            normativa: normativa
-        }
-
-        this.appService.setValueSharedData(_data);
-        this.router.navigate([this._const.URL_PDF_VIEW]);
     }
 }

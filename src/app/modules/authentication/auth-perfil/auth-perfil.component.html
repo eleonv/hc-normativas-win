@@ -12,9 +12,9 @@
         </p>
     </div>
 
-    <button mat-icon-button type="button" class="ms-1" (click)="onIrAndesSuite()" matTooltip="Ir al Andes Suite">
+    <!-- <button mat-icon-button type="button" class="ms-1" (click)="onIrAndesSuite()" matTooltip="Ir al Andes Suite">
         <mat-icon svgIcon="mat_outline:apps"></mat-icon>
-    </button>
+    </button> -->
     <button mat-icon-button type="button" class="ms-2" (click)="onSignOut()" matTooltip="Cerrar sesión">
         <mat-icon svgIcon="heroicons_mini:arrow-right-on-rectangle"></mat-icon>
     </button>
@@ -66,7 +66,7 @@
                     </div>
                 </div>
             </mat-card>
-            
+
             <p *ngIf="!lAcceso">
                 Seras redirigido a AndesSuite, gracias.
             </p>
