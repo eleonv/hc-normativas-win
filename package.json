@@ -1,12 +1,40 @@
 {
   "name": "hc-normativas-frontend",
   "version": "0.0.0",
+  "main": "main.js",
+  "description": "Sistema de gestion de normativas",
+  "author": "Humano Computador S.A.C",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "electron": "ng build --base-href ./ && electron .",
+    "electron-build": "ng build --base-href ./ && electron .",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "com.hc.gnormativa",
+    "productName": "normativas",
+    "files": [
+      "dist/**/*",
+      "main.js",
+      "package.json",
+      "preload.js"
+    ],
+    "win": {
+      "target": "nsis",
+      "requestedExecutionLevel": "requireAdministrator"
+    },
+    "protocols": [
+      {
+        "name": "Normativa Protocol",
+        "schemes": [
+          "snormativa"
+        ]
+      }
+    ]
   },
   "private": true,
   "dependencies": {
@@ -33,7 +61,9 @@
     "@angular/cli": "^18.0.2",
     "@angular/compiler-cli": "^18.0.0",
     "@types/jasmine": "~5.1.0",
-    "electron": "^33.2.1",
+    "electron": "^34.0.2",
+    "electron-builder": "^25.1.8",
+    "electron-packager": "^17.1.2",
     "jasmine-core": "~5.1.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",

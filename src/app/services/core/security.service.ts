@@ -20,7 +20,7 @@ export class SecurityService {
     }
 
     getPerfiles(): Observable<any> {
-        return this.http.get<any>(this.urlIdentity + 'consultar-perfiles?idSistema=' + environment.ID_SISTEMA);
+        return this.http.get<any>(this.urlIdentity + 'consultar-perfiles?idSistema=' + environment.ID_SISTEMA + '&cNormativa='+'SENfU2VydmljZV9Ub2tlbkFjY2Vzc0FwcGxpY2FjaW9u');
     }
 
     getMenus(): Observable<any> {

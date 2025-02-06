@@ -55,16 +55,22 @@ export class AdmPerfilRegComponent {
     lDescarga: any
 
     listaGerencias: any[] = []
+    listaCargos: any[] = []
     nTipo: number = 1;
 
     readonly configAreasMSelect = { label: 'Gerencias', button: 'Agregar' };
     areasSeledted = signal<any[]>([]);
     areasRaw: ChipItem[] = [];
 
+    readonly configCargoMSelect = { label: 'Cargos', button: 'Agregar' };
+    cargosSeledted = signal<any[]>([]);
+    cargosRaw: ChipItem[] = [];
+
     disabledForm: boolean = false;
     lTodoGerencia: boolean = false;
     idAreas: number[] = [];
     listadoGer: any;
+    listadoCargos: any;
 
 
     constructor(
@@ -80,6 +86,7 @@ export class AdmPerfilRegComponent {
         if (_accionForm) {
             this.accionForm = _accionForm;
             this.listarGerencias()
+            this.listarCargos()
         }
 
         if (this.accionForm == this._const.ACCION_FORM_EDIT) {
@@ -105,6 +112,27 @@ export class AdmPerfilRegComponent {
                         let listado = response.data;
                         this.areasRaw = listado.map((item: any) => {
                             return { id: item.idGerencia, name: item.cGerencia, check: false };
+                        });
+                    } else {
+                        this.toastr.warning(response.message, this._const.MESSAGE_TITLE_WARNING);
+                    }
+                },
+            });
+    }
+    listarCargos() {
+        this.appService.activateLoading();
+        this.perfilService.listCargos(-1)
+            .pipe(take(1), takeUntilDestroyed(this.destroyRef))
+            .subscribe({
+                next: (response: any) => {
+                    this.appService.disableLoading();
+                    ////console.log("Areas", response);
+
+                    if (response.success == Constante.STATUS_OK) {
+                        this.listaCargos = response.data;
+                        let listado = response.data;
+                        this.cargosRaw = listado.map((item: any) => {
+                            return { id: item.idCargo, name: item.cCargo, check: false };
                         });
                     } else {
                         this.toastr.warning(response.message, this._const.MESSAGE_TITLE_WARNING);
@@ -177,7 +205,6 @@ export class AdmPerfilRegComponent {
                     this.onSalirForm();
                     return
                 }
-
                 this.perfilData.idPerfil = perfil.idPerfil;
                 this.perfilData.cNombre = perfil.cNombre;
 
@@ -191,8 +218,11 @@ export class AdmPerfilRegComponent {
                 perfil.lstGerencias.forEach((x: any) => {
                     this.areasSeledted.update(item => [...item, { id: x.idGerencia, name: x.cGerencia, check: true }]);
                 });
-                this.idAreas = perfil.lstGerencias.lstGerencias.map((item: any) => item.idGerencia);
+                this.idAreas = perfil.lstGerencias.map((item: any) => item.idGerencia);
 
+                perfil.lstCargos.forEach((x: any) => {
+                    this.cargosSeledted.update(item => [...item, { id: x.idCargo, name: x.cCargo, check: true }]);
+                });
                 //this.form.controls.nTipoPadre.setValue(this.perfilData.nTipoPadre);
             });
     }
@@ -201,6 +231,7 @@ export class AdmPerfilRegComponent {
         this.form.controls.cNombre.disable();
         this.form.controls.lDescarga.disable();
         this.form.controls.lImprime.disable();
+        this.disabledForm = true
         //this.form.controls.nTipoPadre.disable();
     }
     //#endregion
@@ -218,7 +249,8 @@ export class AdmPerfilRegComponent {
             nTipo: _tipoPerfil,
             nImprime: _imprime,
             nDescarga: _descarga,
-            lstGerencia: this.idAreas
+            lstGerencia: this.idAreas,
+            lstCargo: this.listadoCargos
         };
 
         //console.log(_perfil)
@@ -236,6 +268,20 @@ export class AdmPerfilRegComponent {
             this.listadoGer = _response.data;
 
             this.idAreas = this.listadoGer.map((item: any) => item.id);
+        }
+    }
+
+    onSelectedCargos($event: any) {
+        let _response = $event;
+
+        if (_response.status == Constante.STATUS_OK) {
+            this.listadoCargos = _response.data;
+            let aux = []
+            aux = this.listadoCargos.map((x: any) => ({
+                idCargo: x.id,
+                cCargo: x.name
+            }));
+            this.listadoCargos = aux
         }
     }
 

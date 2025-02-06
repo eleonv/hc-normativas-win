@@ -26,7 +26,7 @@ export class AppComponent {
             Promise.resolve().then(() => this.loading = x)
         });
 
-        //console.log("window.electron", window.electron);
+        console.log('ele', window.electron)
 
         if (window.electron) {
             window.electron.receiveParams((params: any) => {
