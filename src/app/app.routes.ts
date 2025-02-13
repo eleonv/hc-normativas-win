@@ -20,5 +20,5 @@ export const routes: Routes = [
     },
     { path: 'verPdf/ver', component: ViewpdfComponent, canActivate: [authGuard]},
 
-    //{ path: '**', component: NotFoundComponent }
+    { path: '**', redirectTo: '/', pathMatch:'full' }
 ];

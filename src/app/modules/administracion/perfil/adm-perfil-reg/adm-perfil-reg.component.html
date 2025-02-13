@@ -16,6 +16,10 @@
             <app-multipleselect [selectedItems]="areasSeledted" [datasource]="areasRaw" [config]="configAreasMSelect"
                 (result)="onSelectedAreas($event)" [disabled]="disabledForm"></app-multipleselect>
         </div>
+        <div class="col-md-12">
+            <app-multipleselect [selectedItems]="cargosSeledted" [datasource]="cargosRaw" [config]="configCargoMSelect"
+                (result)="onSelectedCargos($event)" [disabled]="disabledForm"></app-multipleselect>
+        </div>
         <section class=" mb-3">
             <p>Opciones:</p>
             <mat-checkbox formControlName="lImprime" class="mx-3" [(ngModel)]="lImprime">Imprime</mat-checkbox>

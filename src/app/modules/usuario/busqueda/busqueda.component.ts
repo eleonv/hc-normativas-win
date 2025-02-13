@@ -25,6 +25,7 @@ import { ResponseComponent } from '../../../models/core/response-component';
 import { SugerenciaDialogComponent } from '../../../shared/dialogs/sugerencia-dialog/sugerencia-dialog.component';
 import { ServService } from '../../../services/serv.service';
 import { AuthUtility } from '../../../utility/auth-utility';
+import { ConfirmationDialogComponent } from '../../../shared/dialogs/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
     selector: 'app-busqueda',
@@ -309,8 +310,65 @@ export class BusquedaComponent {
         this.listarRegistros();
     }
 
+    onFavorito(normativa: any) {
+
+        if (!normativa.lFavorito) {
+            this.saveFavorito(normativa);
+        } else {
+            this.dialog.open(ConfirmationDialogComponent, { data: { message: "¿Estás seguro de eliminar de tus favoritos?" } })
+                .afterClosed().subscribe((response: ResponseComponent<any>) => {
+                    if (response.status == this._const.DIALOG_STATUS_OK) {
+                        this.deleteFavorito(normativa);
+                    }
+                });
+        }
+    }
+
     preventDefault(event: Event) {
         event.preventDefault();
+    }
+
+    saveFavorito(normativa: any) {
+        this.appService.activateLoading();
+        this.userNormativaService.saveFavorito(normativa)
+            .pipe(take(1), takeUntilDestroyed(this.destroyRef))
+            .subscribe({
+                next: (response: any) => {
+                    this.appService.disableLoading();
+
+                    if (response.success == this._const.STATUS_OK) {
+                        this.toastr.success(response.message, this._const.MESSAGE_TITLE_SUCCESS);
+                        this.listarRegistros();
+                    } else {
+                        console.error(this._const.MESSAGE_ERROR_SERVER, response.errors);
+                        this.toastr.warning(response.message, this._const.MESSAGE_TITLE_WARNING);
+                    }
+                }/*,
+                error: (err: any) => {
+                    this.appService.disableLoading();
+                    console.error(this._const.MESSAGE_ERROR_SERVER, err);
+                    this.toastr.error(this._const.MESSAGE_ERROR_SERVER, this._const.MESSAGE_TITLE_ERROR);
+                }*/
+            });
+    }
+
+    deleteFavorito(normativa: any) {
+        this.appService.activateLoading();
+        this.userNormativaService.deleteFavorito(normativa)
+            .pipe(take(1), takeUntilDestroyed(this.destroyRef))
+            .subscribe({
+                next: (response: any) => {
+                    this.appService.disableLoading();
+
+                    if (response.success == this._const.STATUS_OK) {
+                        this.toastr.success(response.message, this._const.MESSAGE_TITLE_SUCCESS);
+                        this.listarRegistros();
+                    } else {
+                        console.error(this._const.MESSAGE_ERROR_SERVER, response.errors);
+                        this.toastr.warning(response.message, this._const.MESSAGE_TITLE_WARNING);
+                    }
+                }
+            });
     }
     //#endregion
 }

@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { ClassicLayoutComponent } from '../../layout/classic-layout/classic-layout.component';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { MenuImp } from '../../models/core/menu.imp';
 import { Menu } from '../../models/menu';
 import { Constante } from '../../utility/constante';
 import { Location } from '@angular/common';
 import { UsuarioAS } from '../../models/usuarioas';
 import { AuthUtility } from '../../utility/auth-utility';
+import { AppService } from '../../services/core/app.service';
 
 @Component({
     selector: 'app-dashboard',
@@ -27,7 +28,9 @@ export class DashboardComponent {
     nombrePerfil: string | null = null;
 
     constructor(
-        private location: Location
+        private location: Location,
+        private appService: AppService,
+        private router: Router
     ) {
         // obtener la url actual
         this.currentPath = this.location.path();
@@ -35,8 +38,13 @@ export class DashboardComponent {
         this.user = AuthUtility.getValueUserAS();
         this.perfil = AuthUtility.getPerfil();
         this.menu = AuthUtility.getMenu();
-        this.nombrePerfil = this.perfil.cPefil;
-
+        if(this.perfil)
+            this.nombrePerfil = this.perfil.cPefil;
+        else
+        {
+            this.appService.setValueSharedData(AuthUtility.getToken());
+            this.router.navigate([Constante.URL_PERFIL_SELECCIONAR]);
+        }
         ////console.log("menu", this.menu);
         //this.construirMenu();
         this.activarMenu(this.menu, null);
