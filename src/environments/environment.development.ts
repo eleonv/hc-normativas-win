@@ -1,6 +1,6 @@
 export const environment = {
     production: false,
-    VERSION: '1.1.32',
+    VERSION: '1.1.34',
     ID_SISTEMA: 1,
 
     // back: normativa
